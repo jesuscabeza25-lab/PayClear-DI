@@ -47,7 +47,6 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
     }
 
         //Getters y setters
-       //Getters y setters
     public String getNombreParticipante() {
         return nombreParticipante;
     }
@@ -108,15 +107,14 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
 
     //Estado calculado 
     public Estado getEstado() {
-        if (saldoActual > 0) {
+        if (saldoActual > TOLERANCIA) {
             return Estado.ACREEDOR;
         }
-        if (saldoActual < 0) {
+        if (saldoActual < -TOLERANCIA) {
             return Estado.DEUDOR;
         }
         return Estado.SALDADO;
     }
-
     public Color getColorEstado() {
         return switch (getEstado()) {
             case ACREEDOR -> colorAcreedor;
