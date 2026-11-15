@@ -1,11 +1,17 @@
 package com.payclear.componente;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
+import java.text.NumberFormat;
+import java.util.Locale;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
@@ -16,7 +22,7 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    // Constantes 
+    // Constantes
     public static final String PROP_NOMBRE = "nombreParticipante";
     public static final String PROP_SALDO = "saldoActual";
     public static final double TOLERANCIA = 0.005;
@@ -25,7 +31,7 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
         ACREEDOR, DEUDOR, SALDADO
     }
 
-    //  Atributos 
+    // Atributos
     private String nombreParticipante;
     private double saldoActual;
     private Color colorAcreedor;
@@ -34,7 +40,11 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
 
     private final PropertyChangeSupport propertySupport;
 
-    //Constructor 
+    // NUEVO: las dos etiquetas que se ven en la tarjeta
+    private final JLabel lblNombre;
+    private final JLabel lblImporte;
+
+    // Constructor
     public TarjetaSaldoParticipante() {
         propertySupport = new PropertyChangeSupport(this);
         nombreParticipante = "Participante";
@@ -44,9 +54,24 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
         colorSaldado = new Color(0x59665E);
         setPreferredSize(new Dimension(220, 90));
         setOpaque(true);
+
+        // NUEVO: crear las etiquetas y colocarlas
+        lblNombre = new JLabel();
+        lblImporte = new JLabel();
+        lblNombre.setForeground(Color.WHITE);
+        lblImporte.setForeground(Color.WHITE);
+        lblNombre.setFont(lblNombre.getFont().deriveFont(Font.BOLD, 15f));
+        lblImporte.setFont(lblImporte.getFont().deriveFont(14f));
+
+        setLayout(new BorderLayout());
+        setBorder(BorderFactory.createEmptyBorder(12, 14, 12, 14));
+        add(lblNombre, BorderLayout.NORTH);
+        add(lblImporte, BorderLayout.SOUTH);
+
+        actualizarVista();
     }
 
-        //Getters y setters
+    // Getters y setters
     public String getNombreParticipante() {
         return nombreParticipante;
     }
@@ -56,7 +81,7 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
             String anterior = this.nombreParticipante;
             this.nombreParticipante = nombreParticipante;
             propertySupport.firePropertyChange(PROP_NOMBRE, anterior, nombreParticipante);
-            repaint();
+            actualizarVista();
         }
     }
 
@@ -68,7 +93,7 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
         double anterior = this.saldoActual;
         this.saldoActual = saldoActual;
         propertySupport.firePropertyChange(PROP_SALDO, anterior, saldoActual);
-        repaint();
+        actualizarVista();
     }
 
     public Color getColorAcreedor() {
@@ -78,7 +103,7 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
     public void setColorAcreedor(Color colorAcreedor) {
         if (colorAcreedor != null) {
             this.colorAcreedor = colorAcreedor;
-            repaint();
+            actualizarVista();
         }
     }
 
@@ -89,7 +114,7 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
     public void setColorDeudor(Color colorDeudor) {
         if (colorDeudor != null) {
             this.colorDeudor = colorDeudor;
-            repaint();
+            actualizarVista();
         }
     }
 
@@ -100,12 +125,11 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
     public void setColorSaldado(Color colorSaldado) {
         if (colorSaldado != null) {
             this.colorSaldado = colorSaldado;
-            repaint();
+            actualizarVista();
         }
     }
 
-
-    //Estado calculado 
+    // Estado calculado
     public Estado getEstado() {
         if (saldoActual > TOLERANCIA) {
             return Estado.ACREEDOR;
@@ -115,15 +139,42 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
         }
         return Estado.SALDADO;
     }
+
     public Color getColorEstado() {
-        return switch (getEstado()) {
-            case ACREEDOR -> colorAcreedor;
-            case DEUDOR -> colorDeudor;
-            default -> colorSaldado;
-        };
+        switch (getEstado()) {
+            case ACREEDOR:
+                return colorAcreedor;
+            case DEUDOR:
+                return colorDeudor;
+            default:
+                return colorSaldado;
+        }
     }
 
-    // Eventos de acción 
+    // NUEVO: pone los textos y el color según el estado
+    private void actualizarVista() {
+        NumberFormat formato = NumberFormat.getCurrencyInstance(new Locale("es", "ES"));
+        String importe = formato.format(Math.abs(saldoActual));
+
+        lblNombre.setText(nombreParticipante);
+
+        switch (getEstado()) {
+            case ACREEDOR:
+                lblImporte.setText("+ Le deben " + importe);
+                break;
+            case DEUDOR:
+                lblImporte.setText("- Debe " + importe);
+                break;
+            default:
+                lblImporte.setText("✓ Saldado");
+                break;
+        }
+
+        setBackground(getColorEstado());
+        repaint();
+    }
+
+    // Eventos de acción
     public void addActionListener(ActionListener listener) {
         // TODO [3.2] Jesús: guardar el listener y avisarle al hacer clic
     }
@@ -132,7 +183,7 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
         // TODO [3.2] Jesús: quitar el listener
     }
 
-    //  Avisos de cambios: propiedades enlazadas 
+    // Avisos de cambios: propiedades enlazadas
     @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         super.addPropertyChangeListener(listener);
