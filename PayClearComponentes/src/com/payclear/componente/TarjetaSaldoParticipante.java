@@ -46,14 +46,19 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
         setOpaque(true);
     }
 
-    //Getters y setters 
+        //Getters y setters
+       //Getters y setters
     public String getNombreParticipante() {
         return nombreParticipante;
     }
 
     public void setNombreParticipante(String nombreParticipante) {
-        this.nombreParticipante = nombreParticipante;
-        repaint();
+        if (nombreParticipante != null && !nombreParticipante.isBlank()) {
+            String anterior = this.nombreParticipante;
+            this.nombreParticipante = nombreParticipante;
+            propertySupport.firePropertyChange(PROP_NOMBRE, anterior, nombreParticipante);
+            repaint();
+        }
     }
 
     public double getSaldoActual() {
@@ -61,7 +66,9 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
     }
 
     public void setSaldoActual(double saldoActual) {
+        double anterior = this.saldoActual;
         this.saldoActual = saldoActual;
+        propertySupport.firePropertyChange(PROP_SALDO, anterior, saldoActual);
         repaint();
     }
 
@@ -70,8 +77,10 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
     }
 
     public void setColorAcreedor(Color colorAcreedor) {
-        this.colorAcreedor = colorAcreedor;
-        repaint();
+        if (colorAcreedor != null) {
+            this.colorAcreedor = colorAcreedor;
+            repaint();
+        }
     }
 
     public Color getColorDeudor() {
@@ -79,8 +88,10 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
     }
 
     public void setColorDeudor(Color colorDeudor) {
-        this.colorDeudor = colorDeudor;
-        repaint();
+        if (colorDeudor != null) {
+            this.colorDeudor = colorDeudor;
+            repaint();
+        }
     }
 
     public Color getColorSaldado() {
@@ -88,9 +99,12 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
     }
 
     public void setColorSaldado(Color colorSaldado) {
-        this.colorSaldado = colorSaldado;
-        repaint();
+        if (colorSaldado != null) {
+            this.colorSaldado = colorSaldado;
+            repaint();
+        }
     }
+
 
     //Estado calculado 
     public Estado getEstado() {
