@@ -2,17 +2,28 @@ package com.payclear.componente;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.text.NumberFormat;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  * Tarjeta que muestra el nombre de un participante de PayClear y cuánto dinero
@@ -20,11 +31,12 @@ import javax.swing.JPanel;
  * <p>
  * El fondo se pinta de verde si le deben dinero, de rojo si debe y de gris si
  * está en paz. También lleva un signo y un texto, para que se entienda aunque
- * no se distingan bien los colores.
+ * no se distingan bien los colores, y responde a eventos de ratón y teclado.
  * </p>
  *
  * @author Jose Luis Segura Fernandez
- * @version 1.0
+ * @author Jesus Cabeza Carballar
+ *
  */
 public class TarjetaSaldoParticipante extends JPanel implements Serializable {
 
@@ -72,6 +84,15 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
     /** Se encarga de avisar a quien escucha cuando cambia el nombre o el saldo. */
     private final PropertyChangeSupport propertySupport;
 
+    /** Lista de observadores que escuchan cuando el usuario pulsa o activa la tarjeta. */
+    private final List<ActionListener> actionListeners;
+
+    /** Indica si el cursor del ratón está encima de la tarjeta. */
+    private boolean hover;
+
+    /** Indica si la tarjeta está siendo pulsada actualmente con ratón o teclado. */
+    private boolean presionado;
+
     /** Etiqueta de arriba, con el nombre. */
     private final JLabel lblNombre;
 
@@ -86,6 +107,10 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
      */
     public TarjetaSaldoParticipante() {
         propertySupport = new PropertyChangeSupport(this);
+        actionListeners = new ArrayList<>();
+        hover = false;
+        presionado = false;
+
         nombreParticipante = "Participante";
         saldoActual = 0.0;
         colorAcreedor = new Color(0x11734F);
@@ -93,6 +118,10 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
         colorSaldado = new Color(0x59665E);
         setPreferredSize(new Dimension(220, 90));
         setOpaque(true);
+
+        // Permitir recibir foco con teclado (Tab) y mostrar cursor de mano
+        setFocusable(true);
+        setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 
         // Etiquetas: el nombre arriba y el importe abajo, en blanco
         lblNombre = new JLabel();
@@ -107,7 +136,89 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
         add(lblNombre, BorderLayout.NORTH);
         add(lblImporte, BorderLayout.SOUTH);
 
+        inicializarEventosInteraccion();
         actualizarVista();
+    }
+
+    /**
+     * Configura los escuchadores de ratón, foco y teclado para detectar la
+     * interacción del usuario con la tarjeta.
+     */
+    private void inicializarEventosInteraccion() {
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                if (isEnabled()) {
+                    hover = true;
+                    actualizarEstiloInteraccion();
+                }
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+                hover = false;
+                presionado = false;
+                actualizarEstiloInteraccion();
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                if (isEnabled() && SwingUtilities.isLeftMouseButton(e)) {
+                    presionado = true;
+                    requestFocusInWindow();
+                    actualizarEstiloInteraccion();
+                }
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                if (presionado) {
+                    presionado = false;
+                    actualizarEstiloInteraccion();
+                }
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (isEnabled() && SwingUtilities.isLeftMouseButton(e)) {
+                    dispararActionEvent();
+                }
+            }
+        });
+
+        addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                actualizarEstiloInteraccion();
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                presionado = false;
+                actualizarEstiloInteraccion();
+            }
+        });
+
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (isEnabled() && (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_SPACE)) {
+                    presionado = true;
+                    actualizarEstiloInteraccion();
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (presionado && (e.getKeyCode() == KeyEvent.VK_ENTER || e.getKeyCode() == KeyEvent.VK_SPACE)) {
+                    presionado = false;
+                    actualizarEstiloInteraccion();
+                    if (isEnabled()) {
+                        dispararActionEvent();
+                    }
+                }
+            }
+        });
     }
 
     // Getters y setters
@@ -262,7 +373,7 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
         }
     }
 
-    // Pone los textos y el color de fondo según el estado y vuelve a pintar la tarjeta
+    // Pone los textos, accesibilidad y el color de fondo según el estado
     private void actualizarVista() {
         NumberFormat formato = NumberFormat.getCurrencyInstance(new Locale("es", "ES"));
         String importe = formato.format(Math.abs(saldoActual));
@@ -281,30 +392,89 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
                 break;
         }
 
-        setBackground(getColorEstado());
+        // Accesibilidad para lectores de pantalla (NVDA)
+        getAccessibleContext().setAccessibleName("Tarjeta de saldo de " + nombreParticipante);
+        getAccessibleContext().setAccessibleDescription(
+                "Participante " + nombreParticipante + ", " + lblImporte.getText()
+                + ". Pulse Intro o Espacio para seleccionar."
+        );
+
+        actualizarEstiloInteraccion();
+    }
+
+    // Actualiza fondo y borde en hover, pulsación y foco manteniendo el margen total (12, 14, 12, 14)
+    private void actualizarEstiloInteraccion() {
+        Color base = getColorEstado();
+
+        if (presionado) {
+            setBackground(base.darker());
+        } else if (hover) {
+            setBackground(aclararColor(base, 18));
+        } else {
+            setBackground(base);
+        }
+
+        if (hasFocus()) {
+            setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(Color.WHITE, 2),
+                    BorderFactory.createEmptyBorder(10, 12, 10, 12)
+            ));
+        } else if (hover || presionado) {
+            setBorder(BorderFactory.createCompoundBorder(
+                    BorderFactory.createLineBorder(new Color(255, 255, 255, 180), 1),
+                    BorderFactory.createEmptyBorder(11, 13, 11, 13)
+            ));
+        } else {
+            setBorder(BorderFactory.createEmptyBorder(12, 14, 12, 14));
+        }
+
         repaint();
+    }
+
+    // Aclara ligeramente el color base en hover sin perder contraste con las letras blancas
+    private Color aclararColor(Color color, int incremento) {
+        int r = Math.min(255, color.getRed() + incremento);
+        int g = Math.min(255, color.getGreen() + incremento);
+        int b = Math.min(255, color.getBlue() + incremento);
+        return new Color(r, g, b);
     }
 
     // Eventos de acción
 
     /**
-     * Apunta a alguien para que se entere cuando se pulse la tarjeta.
-     * Los clics los programa Jesús en la tarea 3.2.
+     * Apunta a alguien para que se entere cuando se pulse o active la tarjeta.
      *
      * @param listener quien quiere enterarse de las pulsaciones
      */
     public void addActionListener(ActionListener listener) {
-        // TODO [3.2] Jesús: guardar el listener y avisarle al hacer clic
+        if (listener != null && !actionListeners.contains(listener)) {
+            actionListeners.add(listener);
+        }
     }
 
     /**
      * Quita a alguien que estaba apuntado para enterarse de las pulsaciones.
-     * Se completa en la tarea 3.2.
      *
      * @param listener quien ya no quiere enterarse
      */
     public void removeActionListener(ActionListener listener) {
-        // TODO [3.2] Jesús: quitar el listener
+        if (listener != null) {
+            actionListeners.remove(listener);
+        }
+    }
+
+    /**
+     * Notifica a todos los observadores registrados que la tarjeta ha sido activada.
+     */
+    protected void dispararActionEvent() {
+        ActionEvent evento = new ActionEvent(
+                this,
+                ActionEvent.ACTION_PERFORMED,
+                nombreParticipante
+        );
+        for (ActionListener listener : new ArrayList<>(actionListeners)) {
+            listener.actionPerformed(evento);
+        }
     }
 
     // Avisos de cambios. Se apunta a cada uno en Swing y en nuestro propertySupport.
