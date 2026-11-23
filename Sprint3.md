@@ -15,44 +15,35 @@
 
 **Responsable:** Guillermo Eugui Sánchez
 
-Antes de integrar `TarjetaSaldoParticipante` en las vistas principales de `PayClear`, se ha creado una pila de 8 pruebas automatizadas en `PayClearComponentes/test/TarjetaSaldoParticipanteTest.java` para comprobar que el componente responde bien tanto a nivel de lógica como de interfaz, seguridad y rendimiento.
+Antes de integrar `TarjetaSaldoParticipante` en las vistas principales de PayClear, se han creado 6 pruebas automatizadas en `PayClearComponentes/test/TarjetaSaldoParticipanteTest.java`, totalmente desacoplada de `VistaPrincipal`, para validar el estado inicial, los setters, la lógica visual, el control de errores y los eventos del componente.
 
-### Enfoque técnico (Swing nativo frente a TestFX)
-**PayClear** está hecho en **Java Swing y FlatLaf**, las interacciones de ratón y teclado se han simulado directamente con el *Event Dispatch Thread* (EDT) usando `SwingUtilities.invokeAndWait`, `MouseEvent` y `KeyEvent`. Así las pruebas corren en Java puro, sin añadir dependencias externas que compliquen la compilación en NetBeans.
+### Enfoque técnico (JUnit 4.13.2 + EDT nativo)
+
+Como PayClear está desarrollado en Java Swing con FlatLaf y gestionado con **Ant** en NetBeans, se ha utilizado **JUnit 4.13.2 junto con Hamcrest** (que incluye `assertThrows`) para garantizar la compatibilidad total con el ejecutor de pruebas de Ant en el IDE, evitando los fallos de detección del motor de JUnit 5 en proyectos Ant. Para las pruebas de interacción de interfaz se simula el evento de ratón directamente sobre el Event Dispatch Thread (EDT) mediante `SwingUtilities.invokeAndWait` y `MouseEvent`.
 
 ### Resumen de los casos probados
 
-| # | Tipo | Qué se comprueba | Resultado |
-| :-: | :--- | :--- | :-: |
-| 1 | **Unitaria** | Que el constructor por defecto deje valores seguros (`"Participante"`, saldo `0.0`, estado `SALDADO`, color `#59665E` y foco activado). | PASS |
-| 2 | **Unitaria** | Que el estado y el color cambien bien a `ACREEDOR` o `DEUDOR`, respetando la tolerancia de `±0.005` para evitar fallos por decimales residuales. | PASS |
-| 3 | **Unitaria** | Que `PropertyChangeListener` avise correctamente con el valor antiguo y el nuevo cuando se cambia el nombre o el saldo. | PASS |
-| 4 | **Unitaria** | Que los textos de accesibilidad (`AccessibleName` y `AccessibleDescription`) se actualicen para lectores de pantalla como NVDA. | PASS |
-| 5 | **UI (Ratón)** | Que al pasar el ratón (`MOUSE_ENTERED` / `MOUSE_EXITED`) cambie el estilo de hover y que el clic izquierdo dispare el `ActionEvent`. | PASS |
-| 6 | **UI (Teclado)** | Que pulsar `Enter` sobre la tarjeta dispare el `ActionEvent` para poder usarla sin ratón. | PASS |
-| 7 | **Seguridad** | Que ignore nombres nulos o en blanco y colores nulos, y que no lance excepciones con valores límite (`Double.MAX_VALUE`, `Double.NaN`) ni con cadenas con etiquetas HTML. | PASS |
-| 8 | **Rendimiento** | Prueba de estrés creando 500 tarjetas seguidas dentro de un `JPanel` para medir tiempo de carga y consumo de memoria. | PASS |
+| # | Método de prueba | Tipo | Qué se comprueba | Resultado |
+| :-: | :--- | :--- | :--- | :-: |
+| 1 | `testValoresPorDefecto` | Unitaria | Que el constructor sin argumentos inicialice el nombre a `"Participante"`, el saldo a `0.0` y el foco activado (`isFocusable()`). | PASS |
+| 2 | `testSettersModificanEstadoInterno` | Unitaria | Que `setNombreParticipante` y `setSaldoActual` actualicen correctamente el estado interno (`assertEquals`). | PASS |
+| 3 | `testEstadoVisualColoresPorSaldo` | Visual | Que el color de estado corresponda a acreedor (verde) con saldo positivo, deudor (rojo) con negativo y saldado (gris) con cero. | PASS |
+| 4 | `testValoresNulosLanzanExcepcion` | Robustez | Que pasar nombre nulo o en blanco, o cualquiera de los tres colores a `null`, lance `IllegalArgumentException` (`assertThrows`). | PASS |
+| 5 | `testClicDisparaActionListener` | UI (Ratón) | Que simular un clic izquierdo (`MouseEvent.MOUSE_CLICKED`) en el EDT notifique al `ActionListener` registrado. | PASS |
+| 6 | `testCambioSaldoDisparaPropertyChangeEvent` | Eventos | Que modificar el saldo dispare un `PropertyChangeEvent` para `PROP_SALDO` con el valor antiguo (`0.0`) y el nuevo (`100.0`). | PASS |
 
-### Salida de las pruebas y métricas
-Todas las pruebas han pasado a la primera (`8 PASADAS | 0 FALLADAS`) en 2 segundos. En la prueba de estrés, instanciar **500 tarjetas** ha tardado **119 ms** y ha consumido unos **9.175 KB** (~9 MB de Heap), lo que confirma que el componente es ligero y no bloquea la interfaz.
+### Salida de las pruebas
+
+La batería completa se ha ejecutado desde NetBeans con el 100 % de las pruebas superadas (`6/6`) en `0,151 s`:
 
 ```text
-[PASS] 1. Unitaria: Estado inicial por defecto
-[PASS] 2. Unitaria: Estados, colores y tolerancia 0.005
-[PASS] 3. Unitaria: Eventos PropertyChangeListener
-[PASS] 4. Unitaria: Accesibilidad NVDA
-[PASS] 5. UI Automatizada: Clic izquierdo y hover
-[PASS] 6. UI Automatizada: Pulsacion tecla Enter
-[PASS] 7. Seguridad y Robustez: Entradas nulas y extremas
-       -> Metricas estres (500 tarjetas): 119 ms | Memoria aprox: 9175 KB
-[PASS] 8. Rendimiento y Recursos: Estres 500 tarjetas
+Testsuite: TarjetaSaldoParticipanteTest
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0,151 sec
 
+test-single:
+BUILD SUCCESSFUL (total time: 1 second)
+```
 
-========================================
-RESUMEN QA: 8 PASADAS | 0 FALLADAS
-========================================
-BUILD SUCCESSFUL (total time: 2 seconds)
-````
 
 ![Resultado de la ejecución de pruebas en NetBeans](img/salidaPantalla_pruebas.png)
 
