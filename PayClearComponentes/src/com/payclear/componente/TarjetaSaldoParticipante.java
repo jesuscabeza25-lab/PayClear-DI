@@ -38,6 +38,7 @@ import javax.swing.SwingUtilities;
  * @author Jesus Cabeza Carballar
  *
  */
+
 public class TarjetaSaldoParticipante extends JPanel implements Serializable {
 
     /** Versión de la clase, para guardarla y cargarla sin problemas. */
@@ -234,17 +235,19 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
 
     /**
      * Cambia el nombre de la tarjeta y avisa del cambio a quien la esté
-     * escuchando. Si llega vacío, no se hace nada y se queda el que había.
+     * escuchando. Lanza una excepción si es nulo o está vacío.
      *
-     * @param nombreParticipante el nombre nuevo
+     * @param nombre el nombre nuevo
+     * @throws IllegalArgumentException si el nombre es nulo o está en blanco
      */
-    public void setNombreParticipante(String nombreParticipante) {
-        if (nombreParticipante != null && !nombreParticipante.isBlank()) {
-            String anterior = this.nombreParticipante;
-            this.nombreParticipante = nombreParticipante;
-            propertySupport.firePropertyChange(PROP_NOMBRE, anterior, nombreParticipante);
-            actualizarVista();
+    public void setNombreParticipante(String nombre) {
+        if (nombre == null || nombre.isBlank()) {
+            throw new IllegalArgumentException("El nombre no puede ser nulo ni vacio");
         }
+        String anterior = this.nombreParticipante;
+        this.nombreParticipante = nombre;
+        propertySupport.firePropertyChange(PROP_NOMBRE, anterior, this.nombreParticipante);
+        actualizarVista();
     }
 
     /**
@@ -281,15 +284,16 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
 
     /**
      * Cambia el color de fondo para cuando al participante le deben dinero.
-     * Si llega vacío, se queda el que había.
      *
      * @param colorAcreedor el color nuevo
+     * @throws IllegalArgumentException si el color es nulo
      */
     public void setColorAcreedor(Color colorAcreedor) {
-        if (colorAcreedor != null) {
-            this.colorAcreedor = colorAcreedor;
-            actualizarVista();
+        if (colorAcreedor == null) {
+            throw new IllegalArgumentException("El color de acreedor no puede ser nulo");
         }
+        this.colorAcreedor = colorAcreedor;
+        actualizarVista();
     }
 
     /**
@@ -303,15 +307,16 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
 
     /**
      * Cambia el color de fondo para cuando el participante debe dinero.
-     * Si llega vacío, se queda el que había.
      *
      * @param colorDeudor el color nuevo
+     * @throws IllegalArgumentException si el color es nulo
      */
     public void setColorDeudor(Color colorDeudor) {
-        if (colorDeudor != null) {
-            this.colorDeudor = colorDeudor;
-            actualizarVista();
+        if (colorDeudor == null) {
+            throw new IllegalArgumentException("El color de deudor no puede ser nulo");
         }
+        this.colorDeudor = colorDeudor;
+        actualizarVista();
     }
 
     /**
@@ -325,15 +330,16 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
 
     /**
      * Cambia el color de fondo para cuando el participante está en paz.
-     * Si llega vacío, se queda el que había.
      *
      * @param colorSaldado el color nuevo
+     * @throws IllegalArgumentException si el color es nulo
      */
     public void setColorSaldado(Color colorSaldado) {
-        if (colorSaldado != null) {
-            this.colorSaldado = colorSaldado;
-            actualizarVista();
+        if (colorSaldado == null) {
+            throw new IllegalArgumentException("El color de saldado no puede ser nulo");
         }
+        this.colorSaldado = colorSaldado;
+        actualizarVista();
     }
 
     // Estado calculado
