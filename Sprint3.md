@@ -93,7 +93,3 @@ BUILD SUCCESSFUL (total time: 2 seconds)
 ![Resultado de la ejecución de pruebas en NetBeans](img/salidaPantalla_pruebas.png)
 
 ![Documentación generada con Javadoc](img/salidaJavadoc_pruebas.png)
-========================================
-RESUMEN QA: 8 PASADAS | 0 FALLADAS
-========================================
-BUILD SUCCESSFUL (total time: 2 seconds)
