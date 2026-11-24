@@ -7,15 +7,10 @@ import javax.swing.SwingUtilities;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-
 /**
  *
  * @author Equipo PayClear
  */
-
-
-
-
 public class TarjetaSaldoParticipanteTest {
 
     @Test

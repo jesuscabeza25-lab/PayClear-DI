@@ -30,15 +30,21 @@ import javax.swing.SwingUtilities;
  * le deben o debe.
  * <p>
  * El fondo se pinta de verde si le deben dinero, de rojo si debe y de gris si
- * está en paz. También lleva un signo y un texto, para que se entienda aunque
+ * está en paz. También lleva un signo y un texto para que se entienda aunque
  * no se distingan bien los colores, y responde a eventos de ratón y teclado.
  * </p>
  *
- * @author Jose Luis Segura Fernandez
- * @author Jesus Cabeza Carballar
+ * <h2>Reglas de estado</h2>
+ * <ul>
+ *   <li>{@link Estado#ACREEDOR}: cuando {@code saldoActual > TOLERANCIA}.</li>
+ *   <li>{@link Estado#DEUDOR}: cuando {@code saldoActual < -TOLERANCIA}.</li>
+ *   <li>{@link Estado#SALDADO}: cuando {@code Math.abs(saldoActual) <= TOLERANCIA}.</li>
+ * </ul>
  *
+ * @author Equipo PayClear
+ * @see Estado
+ * @see #setSaldoActual(double)
  */
-
 public class TarjetaSaldoParticipante extends JPanel implements Serializable {
 
     /** Versión de la clase, para guardarla y cargarla sin problemas. */
@@ -46,13 +52,22 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
 
     // Constantes
 
-    /** Nombre con el que la tarjeta avisa de que ha cambiado el nombre del participante. */
+    /**
+     * Nombre de propiedad con el que la tarjeta avisa de que ha cambiado el
+     * nombre del participante. Su valor es {@value}.
+     */
     public static final String PROP_NOMBRE = "nombreParticipante";
 
-    /** Nombre con el que la tarjeta avisa de que ha cambiado el saldo. */
+    /**
+     * Nombre de propiedad con el que la tarjeta avisa de que ha cambiado el
+     * saldo del participante. Su valor es {@value}.
+     */
     public static final String PROP_SALDO = "saldoActual";
 
-    /** Medio céntimo: los saldos más pequeños que esto se tratan como cero. */
+    /**
+     * Tolerancia de medio céntimo ({@value}): los saldos cuyo valor absoluto
+     * es menor o igual que este umbral se tratan como cero.
+     */
     public static final double TOLERANCIA = 0.005;
 
     /** Los tres estados en los que puede estar la tarjeta según su saldo. */
@@ -103,8 +118,8 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
     // Constructor
 
     /**
-     * Crea una tarjeta lista para usar, con el nombre "Participante", saldo 0
-     * y un tamaño de 220 x 90 píxeles.
+     * Crea una tarjeta lista para usar, con el nombre {@code "Participante"},
+     * saldo {@code 0.0} y un tamaño preferido de 220 x 90 píxeles.
      */
     public TarjetaSaldoParticipante() {
         propertySupport = new PropertyChangeSupport(this);
@@ -235,17 +250,18 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
 
     /**
      * Cambia el nombre de la tarjeta y avisa del cambio a quien la esté
-     * escuchando. Lanza una excepción si es nulo o está vacío.
+     * escuchando mediante la propiedad {@link #PROP_NOMBRE}.
      *
-     * @param nombre el nombre nuevo
-     * @throws IllegalArgumentException si el nombre es nulo o está en blanco
+     * @param nombreParticipante el nombre nuevo del participante
+     * @throws IllegalArgumentException si el nombre es {@code null} o está en blanco
+     * @see #PROP_NOMBRE
      */
-    public void setNombreParticipante(String nombre) {
-        if (nombre == null || nombre.isBlank()) {
+    public void setNombreParticipante(String nombreParticipante) {
+        if (nombreParticipante == null || nombreParticipante.isBlank()) {
             throw new IllegalArgumentException("El nombre no puede ser nulo ni vacio");
         }
         String anterior = this.nombreParticipante;
-        this.nombreParticipante = nombre;
+        this.nombreParticipante = nombreParticipante;
         propertySupport.firePropertyChange(PROP_NOMBRE, anterior, this.nombreParticipante);
         actualizarVista();
     }
@@ -261,10 +277,12 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
 
     /**
      * Cambia el saldo de la tarjeta y avisa del cambio a quien la esté
-     * escuchando. Después se vuelve a pintar con el color y el texto que toquen.
+     * escuchando mediante la propiedad {@link #PROP_SALDO}. Después se vuelve
+     * a pintar con el color y el texto correspondientes.
      *
      * @param saldoActual el saldo en euros: positivo si le deben y negativo si debe
      * @see #getEstado()
+     * @see #PROP_SALDO
      */
     public void setSaldoActual(double saldoActual) {
         double anterior = this.saldoActual;
@@ -285,8 +303,8 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
     /**
      * Cambia el color de fondo para cuando al participante le deben dinero.
      *
-     * @param colorAcreedor el color nuevo
-     * @throws IllegalArgumentException si el color es nulo
+     * @param colorAcreedor el color nuevo para el estado acreedor
+     * @throws IllegalArgumentException si {@code colorAcreedor} es {@code null}
      */
     public void setColorAcreedor(Color colorAcreedor) {
         if (colorAcreedor == null) {
@@ -308,8 +326,8 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
     /**
      * Cambia el color de fondo para cuando el participante debe dinero.
      *
-     * @param colorDeudor el color nuevo
-     * @throws IllegalArgumentException si el color es nulo
+     * @param colorDeudor el color nuevo para el estado deudor
+     * @throws IllegalArgumentException si {@code colorDeudor} es {@code null}
      */
     public void setColorDeudor(Color colorDeudor) {
         if (colorDeudor == null) {
@@ -331,8 +349,8 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
     /**
      * Cambia el color de fondo para cuando el participante está en paz.
      *
-     * @param colorSaldado el color nuevo
-     * @throws IllegalArgumentException si el color es nulo
+     * @param colorSaldado el color nuevo para el estado saldado
+     * @throws IllegalArgumentException si {@code colorSaldado} es {@code null}
      */
     public void setColorSaldado(Color colorSaldado) {
         if (colorSaldado == null) {
@@ -345,12 +363,13 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
     // Estado calculado
 
     /**
-     * Dice si al participante le deben dinero, si debe o si está en paz. Las
-     * cantidades de menos de medio céntimo cuentan como cero, para que los
-     * restos de las divisiones no cambien el estado.
+     * Indica si al participante le deben dinero, si debe o si está en paz. Las
+     * cantidades cuyo valor absoluto es menor o igual que {@link #TOLERANCIA}
+     * cuentan como cero, para que los restos de las divisiones no alteren el estado.
      *
-     * @return {@code ACREEDOR} si le deben, {@code DEUDOR} si debe
-     *         y {@code SALDADO} si está en paz
+     * @return {@link Estado#ACREEDOR} si le deben, {@link Estado#DEUDOR} si debe
+     *         y {@link Estado#SALDADO} si está en paz
+     * @see #TOLERANCIA
      */
     public Estado getEstado() {
         if (saldoActual > TOLERANCIA) {
@@ -363,7 +382,7 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
     }
 
     /**
-     * Devuelve el color que le toca a la tarjeta según su estado.
+     * Devuelve el color que le corresponde a la tarjeta según su estado actual.
      *
      * @return el color de acreedor, de deudor o de saldado
      * @see #getEstado()
@@ -381,7 +400,7 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
 
     // Pone los textos, accesibilidad y el color de fondo según el estado
     private void actualizarVista() {
-        NumberFormat formato = NumberFormat.getCurrencyInstance(new Locale("es", "ES"));
+        NumberFormat formato = NumberFormat.getCurrencyInstance(Locale.forLanguageTag("es-ES"));
         String importe = formato.format(Math.abs(saldoActual));
 
         lblNombre.setText(nombreParticipante);
@@ -448,9 +467,10 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
     // Eventos de acción
 
     /**
-     * Apunta a alguien para que se entere cuando se pulse o active la tarjeta.
+     * Registra un observador para recibir avisos cuando se pulse o active la tarjeta.
      *
-     * @param listener quien quiere enterarse de las pulsaciones
+     * @param listener observador que recibirá los eventos de acción
+     * @see #removeActionListener(ActionListener)
      */
     public void addActionListener(ActionListener listener) {
         if (listener != null && !actionListeners.contains(listener)) {
@@ -459,9 +479,10 @@ public class TarjetaSaldoParticipante extends JPanel implements Serializable {
     }
 
     /**
-     * Quita a alguien que estaba apuntado para enterarse de las pulsaciones.
+     * Elimina un observador previamente registrado para los eventos de acción.
      *
-     * @param listener quien ya no quiere enterarse
+     * @param listener observador que se desea dar de baja
+     * @see #addActionListener(ActionListener)
      */
     public void removeActionListener(ActionListener listener) {
         if (listener != null) {
