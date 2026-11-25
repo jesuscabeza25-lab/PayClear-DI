@@ -7,9 +7,9 @@
 ### Coevaluación
 | Integrante | Nota (%) |
 | :--- | :--- |
-| Guillermo Eugui | 0% |
-| Jesús Cabeza | 0% | 
-| JoseLuís Segura | 0% |
+| Guillermo Eugui | 95% |
+| Jesús Cabeza | 85% | 
+| JoseLuís Segura | 95% |
 
 ## Pruebas, Calidad y Documentación (QA Tester)
 
