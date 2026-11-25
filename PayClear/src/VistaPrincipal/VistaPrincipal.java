@@ -16,7 +16,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
      * Creates new form VistaPrincipal
      */
     public VistaPrincipal() {
+        com.formdev.flatlaf.FlatLightLaf.setup();
         initComponents();
+        pnlTabla.add(javax.swing.Box.createVerticalGlue());
+        pack();
+        setLocationRelativeTo(null);
     }
 
     /**
@@ -65,27 +69,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnRegistrarGasto = new javax.swing.JButton();
         pnlContenido = new javax.swing.JPanel();
         pnlStats = new javax.swing.JPanel();
-        pnlStatAcreedor = new javax.swing.JPanel();
-        pnlStatIcoAcreedor = new javax.swing.JPanel();
-        lblStatIcoAcreedor = new javax.swing.JLabel();
-        pnlStatTxtAcreedor = new javax.swing.JPanel();
-        lblStatTituloAcreedor = new javax.swing.JLabel();
-        lblStatValorAcreedor = new javax.swing.JLabel();
-        lblStatBadgeAcreedor = new javax.swing.JLabel();
-        pnlStatDeudor = new javax.swing.JPanel();
-        pnlStatIcoDeudor = new javax.swing.JPanel();
-        lblStatIcoDeudor = new javax.swing.JLabel();
-        pnlStatTxtDeudor = new javax.swing.JPanel();
-        lblStatTituloDeudor = new javax.swing.JLabel();
-        lblStatValorDeudor = new javax.swing.JLabel();
-        lblStatBadgeDeudor = new javax.swing.JLabel();
-        pnlStatNeto = new javax.swing.JPanel();
-        pnlStatIcoNeto = new javax.swing.JPanel();
-        lblStatIcoNeto = new javax.swing.JLabel();
-        pnlStatTxtNeto = new javax.swing.JPanel();
-        lblStatTituloNeto = new javax.swing.JLabel();
-        lblStatValorNeto = new javax.swing.JLabel();
-        lblStatBadgeNeto = new javax.swing.JLabel();
+        tarjetaSaldoParticipante4 = new com.payclear.componente.TarjetaSaldoParticipante();
+        tarjetaSaldoParticipante3 = new com.payclear.componente.TarjetaSaldoParticipante();
+        tarjetaSaldoParticipante2 = new com.payclear.componente.TarjetaSaldoParticipante();
         pnlInferior = new javax.swing.JPanel();
         pnlMovimientos = new javax.swing.JPanel();
         pnlMovCabecera = new javax.swing.JPanel();
@@ -388,165 +374,35 @@ public class VistaPrincipal extends javax.swing.JFrame {
         pnlStats.setBackground(new java.awt.Color(243, 245, 244));
         pnlStats.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 20, 0));
         pnlStats.setPreferredSize(new java.awt.Dimension(1145, 152));
-        pnlStats.setLayout(new java.awt.GridBagLayout());
+        pnlStats.setLayout(new java.awt.GridLayout(1, 3, 16, 0));
 
-        pnlStatAcreedor.setBackground(new java.awt.Color(232, 248, 239));
-        pnlStatAcreedor.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(198, 236, 214), 1, true));
-        pnlStatAcreedor.setPreferredSize(new java.awt.Dimension(371, 132));
-        pnlStatAcreedor.setLayout(new java.awt.BorderLayout());
+        tarjetaSaldoParticipante4.setNombreParticipante("Guillermo");
+        tarjetaSaldoParticipante4.setSaldoActual(33.0);
+        tarjetaSaldoParticipante4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tarjetaSaldoParticipante4ActionPerformed(evt);
+            }
+        });
+        pnlStats.add(tarjetaSaldoParticipante4);
 
-        pnlStatIcoAcreedor.setBackground(new java.awt.Color(232, 248, 239));
-        pnlStatIcoAcreedor.setBorder(javax.swing.BorderFactory.createEmptyBorder(21, 19, 0, 12));
-        pnlStatIcoAcreedor.setLayout(new java.awt.BorderLayout());
+        tarjetaSaldoParticipante3.setName(""); // NOI18N
+        tarjetaSaldoParticipante3.setNombreParticipante("José Luis");
+        tarjetaSaldoParticipante3.setSaldoActual(-20.0);
+        tarjetaSaldoParticipante3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tarjetaSaldoParticipante3ActionPerformed(evt);
+            }
+        });
+        pnlStats.add(tarjetaSaldoParticipante3);
 
-        lblStatIcoAcreedor.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
-        lblStatIcoAcreedor.setForeground(new java.awt.Color(21, 102, 56));
-        lblStatIcoAcreedor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblStatIcoAcreedor.setText("+");
-        lblStatIcoAcreedor.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(21, 102, 56), 1, true));
-        lblStatIcoAcreedor.setPreferredSize(new java.awt.Dimension(40, 40));
-        pnlStatIcoAcreedor.add(lblStatIcoAcreedor, java.awt.BorderLayout.NORTH);
-
-        pnlStatAcreedor.add(pnlStatIcoAcreedor, java.awt.BorderLayout.WEST);
-
-        pnlStatTxtAcreedor.setBackground(new java.awt.Color(232, 248, 239));
-        pnlStatTxtAcreedor.setBorder(javax.swing.BorderFactory.createEmptyBorder(21, 0, 0, 0));
-        pnlStatTxtAcreedor.setLayout(new javax.swing.BoxLayout(pnlStatTxtAcreedor, javax.swing.BoxLayout.PAGE_AXIS));
-
-        lblStatTituloAcreedor.setForeground(new java.awt.Color(61, 74, 70));
-        lblStatTituloAcreedor.setText("Te deben");
-        pnlStatTxtAcreedor.add(lblStatTituloAcreedor);
-
-        lblStatValorAcreedor.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
-        lblStatValorAcreedor.setForeground(new java.awt.Color(21, 102, 56));
-        lblStatValorAcreedor.setText("+ 33,00 €");
-        lblStatValorAcreedor.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 8, 0));
-        pnlStatTxtAcreedor.add(lblStatValorAcreedor);
-
-        lblStatBadgeAcreedor.setFont(new java.awt.Font("Segoe UI", 1, 9)); // NOI18N
-        lblStatBadgeAcreedor.setForeground(new java.awt.Color(21, 102, 56));
-        lblStatBadgeAcreedor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblStatBadgeAcreedor.setText("+ ACREEDOR");
-        lblStatBadgeAcreedor.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(21, 102, 56), 1, true));
-        lblStatBadgeAcreedor.setMaximumSize(new java.awt.Dimension(84, 22));
-        lblStatBadgeAcreedor.setPreferredSize(new java.awt.Dimension(84, 22));
-        pnlStatTxtAcreedor.add(lblStatBadgeAcreedor);
-
-        pnlStatAcreedor.add(pnlStatTxtAcreedor, java.awt.BorderLayout.CENTER);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 16);
-        pnlStats.add(pnlStatAcreedor, gridBagConstraints);
-
-        pnlStatDeudor.setBackground(new java.awt.Color(255, 240, 240));
-        pnlStatDeudor.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(246, 204, 204), 1, true));
-        pnlStatDeudor.setPreferredSize(new java.awt.Dimension(371, 132));
-        pnlStatDeudor.setLayout(new java.awt.BorderLayout());
-
-        pnlStatIcoDeudor.setBackground(new java.awt.Color(255, 240, 240));
-        pnlStatIcoDeudor.setBorder(javax.swing.BorderFactory.createEmptyBorder(21, 19, 0, 12));
-        pnlStatIcoDeudor.setLayout(new java.awt.BorderLayout());
-
-        lblStatIcoDeudor.setFont(new java.awt.Font("Segoe UI Symbol", 1, 14)); // NOI18N
-        lblStatIcoDeudor.setForeground(new java.awt.Color(155, 28, 28));
-        lblStatIcoDeudor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblStatIcoDeudor.setText("-");
-        lblStatIcoDeudor.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(155, 28, 28), 1, true));
-        lblStatIcoDeudor.setPreferredSize(new java.awt.Dimension(40, 40));
-        pnlStatIcoDeudor.add(lblStatIcoDeudor, java.awt.BorderLayout.NORTH);
-
-        pnlStatDeudor.add(pnlStatIcoDeudor, java.awt.BorderLayout.WEST);
-
-        pnlStatTxtDeudor.setBackground(new java.awt.Color(255, 240, 240));
-        pnlStatTxtDeudor.setBorder(javax.swing.BorderFactory.createEmptyBorder(21, 0, 0, 0));
-        pnlStatTxtDeudor.setLayout(new javax.swing.BoxLayout(pnlStatTxtDeudor, javax.swing.BoxLayout.PAGE_AXIS));
-
-        lblStatTituloDeudor.setForeground(new java.awt.Color(61, 74, 70));
-        lblStatTituloDeudor.setText("Debes");
-        pnlStatTxtDeudor.add(lblStatTituloDeudor);
-
-        lblStatValorDeudor.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
-        lblStatValorDeudor.setForeground(new java.awt.Color(155, 28, 28));
-        lblStatValorDeudor.setText("− 33,00 €");
-        lblStatValorDeudor.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 8, 0));
-        pnlStatTxtDeudor.add(lblStatValorDeudor);
-
-        lblStatBadgeDeudor.setFont(new java.awt.Font("Segoe UI", 1, 9)); // NOI18N
-        lblStatBadgeDeudor.setForeground(new java.awt.Color(155, 28, 28));
-        lblStatBadgeDeudor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblStatBadgeDeudor.setText("− DEUDOR");
-        lblStatBadgeDeudor.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(155, 28, 28), 1, true));
-        lblStatBadgeDeudor.setMaximumSize(new java.awt.Dimension(72, 22));
-        lblStatBadgeDeudor.setPreferredSize(new java.awt.Dimension(72, 22));
-        pnlStatTxtDeudor.add(lblStatBadgeDeudor);
-
-        pnlStatDeudor.add(pnlStatTxtDeudor, java.awt.BorderLayout.CENTER);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 1;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        gridBagConstraints.insets = new java.awt.Insets(0, 0, 0, 16);
-        pnlStats.add(pnlStatDeudor, gridBagConstraints);
-
-        pnlStatNeto.setBackground(new java.awt.Color(255, 255, 255));
-        pnlStatNeto.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(221, 227, 224), 1, true));
-        pnlStatNeto.setPreferredSize(new java.awt.Dimension(371, 132));
-        pnlStatNeto.setLayout(new java.awt.BorderLayout());
-
-        pnlStatIcoNeto.setBackground(new java.awt.Color(255, 255, 255));
-        pnlStatIcoNeto.setBorder(javax.swing.BorderFactory.createEmptyBorder(21, 19, 0, 12));
-        pnlStatIcoNeto.setLayout(new java.awt.BorderLayout());
-
-        lblStatIcoNeto.setFont(new java.awt.Font("Segoe UI Symbol", 0, 15)); // NOI18N
-        lblStatIcoNeto.setForeground(new java.awt.Color(30, 42, 58));
-        lblStatIcoNeto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblStatIcoNeto.setText("=");
-        lblStatIcoNeto.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(30, 42, 58), 1, true));
-        lblStatIcoNeto.setPreferredSize(new java.awt.Dimension(40, 40));
-        pnlStatIcoNeto.add(lblStatIcoNeto, java.awt.BorderLayout.NORTH);
-
-        pnlStatNeto.add(pnlStatIcoNeto, java.awt.BorderLayout.WEST);
-
-        pnlStatTxtNeto.setBackground(new java.awt.Color(255, 255, 255));
-        pnlStatTxtNeto.setBorder(javax.swing.BorderFactory.createEmptyBorder(21, 0, 0, 0));
-        pnlStatTxtNeto.setLayout(new javax.swing.BoxLayout(pnlStatTxtNeto, javax.swing.BoxLayout.PAGE_AXIS));
-
-        lblStatTituloNeto.setForeground(new java.awt.Color(61, 74, 70));
-        lblStatTituloNeto.setText("Saldo neto total");
-        pnlStatTxtNeto.add(lblStatTituloNeto);
-
-        lblStatValorNeto.setFont(new java.awt.Font("Segoe UI", 1, 28)); // NOI18N
-        lblStatValorNeto.setForeground(new java.awt.Color(30, 42, 58));
-        lblStatValorNeto.setText("0,00 €");
-        lblStatValorNeto.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 8, 0));
-        pnlStatTxtNeto.add(lblStatValorNeto);
-
-        lblStatBadgeNeto.setFont(new java.awt.Font("Segoe UI", 1, 9)); // NOI18N
-        lblStatBadgeNeto.setForeground(new java.awt.Color(30, 42, 58));
-        lblStatBadgeNeto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblStatBadgeNeto.setText("EQUILIBRADO");
-        lblStatBadgeNeto.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(30, 42, 58), 1, true));
-        lblStatBadgeNeto.setMaximumSize(new java.awt.Dimension(90, 22));
-        lblStatBadgeNeto.setPreferredSize(new java.awt.Dimension(90, 22));
-        pnlStatTxtNeto.add(lblStatBadgeNeto);
-
-        pnlStatNeto.add(pnlStatTxtNeto, java.awt.BorderLayout.CENTER);
-
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 0;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.BOTH;
-        gridBagConstraints.weightx = 1.0;
-        gridBagConstraints.weighty = 1.0;
-        pnlStats.add(pnlStatNeto, gridBagConstraints);
+        tarjetaSaldoParticipante2.setNombreParticipante("Jesús");
+        tarjetaSaldoParticipante2.setSaldoActual(-13.0);
+        tarjetaSaldoParticipante2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tarjetaSaldoParticipante2ActionPerformed(evt);
+            }
+        });
+        pnlStats.add(tarjetaSaldoParticipante2);
 
         pnlContenido.add(pnlStats, java.awt.BorderLayout.NORTH);
 
@@ -1100,28 +956,39 @@ public class VistaPrincipal extends javax.swing.JFrame {
         getContentPane().add(pnlEstado, java.awt.BorderLayout.SOUTH);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tarjetaSaldoParticipante2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tarjetaSaldoParticipante2ActionPerformed
+        filtrarHistorialPorParticipante(evt.getActionCommand());
+    }//GEN-LAST:event_tarjetaSaldoParticipante2ActionPerformed
+
+    private void tarjetaSaldoParticipante4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tarjetaSaldoParticipante4ActionPerformed
+        filtrarHistorialPorParticipante(evt.getActionCommand());    }//GEN-LAST:event_tarjetaSaldoParticipante4ActionPerformed
+
+    private void tarjetaSaldoParticipante3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tarjetaSaldoParticipante3ActionPerformed
+filtrarHistorialPorParticipante(evt.getActionCommand());    }//GEN-LAST:event_tarjetaSaldoParticipante3ActionPerformed
+    
+    private void filtrarHistorialPorParticipante(String nombre) {
+        boolean mostrarFila1 = nombre.equalsIgnoreCase(lblPagador1.getText());
+        boolean mostrarFila2 = nombre.equalsIgnoreCase(lblPagador2.getText());
+        boolean mostrarFila3 = nombre.equalsIgnoreCase(lblPagador3.getText());
+
+        pnlFila1.setVisible(mostrarFila1);
+        sepTabla3.setVisible(mostrarFila1 && (mostrarFila2 || mostrarFila3));
+
+        pnlFila2.setVisible(mostrarFila2);
+        sepTabla4.setVisible(mostrarFila2 && mostrarFila3);
+
+        pnlFila3.setVisible(mostrarFila3);
+
+        pnlTabla.revalidate();
+        pnlTabla.repaint();
+    }
+    
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+        com.formdev.flatlaf.FlatLightLaf.setup();
 
-        /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> new VistaPrincipal().setVisible(true));
     }
 
@@ -1175,18 +1042,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel lblParte1;
     private javax.swing.JLabel lblParte2;
     private javax.swing.JLabel lblParte3;
-    private javax.swing.JLabel lblStatBadgeAcreedor;
-    private javax.swing.JLabel lblStatBadgeDeudor;
-    private javax.swing.JLabel lblStatBadgeNeto;
-    private javax.swing.JLabel lblStatIcoAcreedor;
-    private javax.swing.JLabel lblStatIcoDeudor;
-    private javax.swing.JLabel lblStatIcoNeto;
-    private javax.swing.JLabel lblStatTituloAcreedor;
-    private javax.swing.JLabel lblStatTituloDeudor;
-    private javax.swing.JLabel lblStatTituloNeto;
-    private javax.swing.JLabel lblStatValorAcreedor;
-    private javax.swing.JLabel lblStatValorDeudor;
-    private javax.swing.JLabel lblStatValorNeto;
     private javax.swing.JLabel lblTotal1;
     private javax.swing.JLabel lblTotal2;
     private javax.swing.JLabel lblTotal3;
@@ -1223,15 +1078,6 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel pnlSidebar;
     private javax.swing.JPanel pnlSidebarInferior;
     private javax.swing.JPanel pnlSidebarWrap;
-    private javax.swing.JPanel pnlStatAcreedor;
-    private javax.swing.JPanel pnlStatDeudor;
-    private javax.swing.JPanel pnlStatIcoAcreedor;
-    private javax.swing.JPanel pnlStatIcoDeudor;
-    private javax.swing.JPanel pnlStatIcoNeto;
-    private javax.swing.JPanel pnlStatNeto;
-    private javax.swing.JPanel pnlStatTxtAcreedor;
-    private javax.swing.JPanel pnlStatTxtDeudor;
-    private javax.swing.JPanel pnlStatTxtNeto;
     private javax.swing.JPanel pnlStats;
     private javax.swing.JPanel pnlTabla;
     private javax.swing.JPanel pnlTablaHeader;
@@ -1241,6 +1087,9 @@ public class VistaPrincipal extends javax.swing.JFrame {
     private javax.swing.JSeparator sepTabla2;
     private javax.swing.JSeparator sepTabla3;
     private javax.swing.JSeparator sepTabla4;
+    private com.payclear.componente.TarjetaSaldoParticipante tarjetaSaldoParticipante2;
+    private com.payclear.componente.TarjetaSaldoParticipante tarjetaSaldoParticipante3;
+    private com.payclear.componente.TarjetaSaldoParticipante tarjetaSaldoParticipante4;
     private javax.swing.JTextField txtConcepto;
     private javax.swing.JTextField txtImporte;
     // End of variables declaration//GEN-END:variables
