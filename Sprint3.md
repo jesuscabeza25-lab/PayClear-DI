@@ -102,7 +102,32 @@ Al intentar dejar a Carlos sin nombre, la tarjeta lo ignora y sigue llamándose 
 * Oracle. *What Is an Interface?* The Java Tutorials. https://docs.oracle.com/javase/tutorial/java/concepts/interface.html
 * Apache NetBeans. *Developing General Java Applications*. https://netbeans.apache.org/tutorial/main/kb/docs/java/javase-intro/
 
+### 3.2. Modelo de eventos y respuestas interactivas (`TarjetaSaldoParticipante`)
 
+Se ha completado la capa de interacción de `TarjetaSaldoParticipante` manteniendo intacto el contrato de métodos públicos definido en la tarea `3.1` (`addActionListener` y `removeActionListener`).
+
+#### Qué se ha implementado
+* **Eventos de ratón (`MouseListener`):** Detección de entrada y salida del cursor (hover), pulsación con botón izquierdo y disparo de evento al hacer clic.
+* **Soporte de teclado y foco (`FocusListener` y `KeyListener`):** La tarjeta recibe foco mediante la tecla `Tab` (`setFocusable(true)`) y se activa pulsando `Enter` o `Espacio`.
+* **Feedback visual:** Cambio de tono en el fondo al pasar el ratón o pulsar, borde sutil en *hover* y recuadro blanco visible de `2px` cuando la tarjeta tiene el foco del teclado, conservando el margen interior constante para evitar desplazamientos del texto.
+* **Notificación a contenedores externos:** Implementación de `addActionListener()`, `removeActionListener()` y `dispararActionEvent()` enviando un `ActionEvent` con el nombre del participante.
+* **Accesibilidad (NVDA):** Configuración dinámica de `AccessibleName` y `AccessibleDescription` al actualizar el estado de la tarjeta.
+
+#### Pruebas visuales realizadas
+
+**1. Interacción con ratón (efecto hover y clic):**
+
+<img width="482" height="281" alt="image" src="https://github.com/user-attachments/assets/6feb3a68-77e4-442a-8235-0f1cbb0747cb" />
+
+**2. Navegación por teclado (foco visible con Tab y activación con Enter/Espacio):**
+
+<img width="481" height="281" alt="image" src="https://github.com/user-attachments/assets/16c21a3d-feb6-4a87-98fa-12b87bb138e2" />
+
+#### Fuentes
+* Oracle. *How to Write a Mouse Listener*. The Java Tutorials. https://docs.oracle.com/javase/tutorial/uiswing/events/mouselistener.html
+* Oracle. *How to Write a Key Listener*. The Java Tutorials. https://docs.oracle.com/javase/tutorial/uiswing/events/keylistener.html
+* Oracle. *How to Write an Action Listener*. The Java Tutorials. https://docs.oracle.com/javase/tutorial/uiswing/events/actionlistener.html
+* Oracle. *How to Support Assistive Technologies (Java Accessibility API)*. The Java Tutorials. https://docs.oracle.com/javase/tutorial/uiswing/misc/access.html
 
 
 ## Pruebas, Calidad y Documentación (QA Tester)
