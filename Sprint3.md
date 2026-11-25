@@ -9,7 +9,101 @@
 | :--- | :--- |
 | Guillermo Eugui | 95% |
 | Jesús Cabeza | 85% | 
-| JoseLuís Segura | 95% |
+| JoseLuís Segura | 90% |
+
+## **3.1. Arquitectura del componente TarjetaSaldoParticipante**
+
+En este apartado contamos cómo hemos construido nuestro componente propio, la **TarjetaSaldoParticipante**: qué es, con qué herramientas lo hemos hecho, qué propiedades y métodos tiene y por qué lo hemos diseñado así.
+
+### **3.1.1. Qué es la tarjeta y por qué un componente propio**
+
+La tarjeta representa a una persona del grupo. Muestra su nombre y su saldo, y se pinta sola del color que le toca: verde si le deben dinero, rojo si debe y gris si está en paz. Además del color lleva un signo (+, - o ✓) y un texto ("Le deben", "Debe" o "Saldado"), para que se entienda aunque no se distingan bien los colores.
+
+La idea es que la pantalla principal de PayClear tenga una tarjeta por participante. Si cada una se montara a mano con paneles y etiquetas sueltas, habría que repetir el mismo código varias veces. Al hacerla como componente, se programa una vez y se usa tantas veces como haga falta, igual que un botón.
+
+### **3.1.2. Herramientas de diseño y prueba**
+
+| Herramienta | Para qué la usamos |
+| :--- | :--- |
+| NetBeans con su diseñador Matisse | Programar el componente y, al final, arrastrarlo a las pantallas como cualquier otro control |
+| Java 17 LTS y Java Swing | Lenguaje y librería gráfica del proyecto |
+| FlatLaf 3.7.2 | Aspecto moderno de la app; la tarjeta usa la fuente que pone FlatLaf |
+| JUnit 5 | Pruebas unitarias del componente (tarea 3.3) |
+| Javadoc con DocLint | Documentar el código y comprobar que los comentarios están bien escritos |
+| Git y GitHub Projects | Guardar las versiones del código y organizar las tareas del sprint |
+
+### **3.1.3. Dónde está el componente**
+
+El componente tiene su propio proyecto, **PayClearComponentes**, separado de la app. Es una librería de clases de Java (Java Class Library con Ant), en Java 17 y con codificación UTF-8. Al compilarla sale un archivo .jar que PayClear añadirá como una librería más en la integración (3.5), igual que hace con FlatLaf. Así el componente no depende de la app y se puede probar y reutilizar por separado.
+
+
+### **3.1.4. Cómo cumple las normas de un JavaBean**
+
+Para que Matisse pueda usar la tarjeta, la clase sigue las normas de un JavaBean que explica el profesor:
+
+| Norma | Cómo lo cumple la tarjeta |
+| :--- | :--- |
+| Clase pública que hereda de un componente visual | public class TarjetaSaldoParticipante extends JPanel |
+| Se puede guardar (serializar) | implements Serializable |
+| Constructor sin argumentos | Crea la tarjeta con nombre "Participante", saldo 0 y tamaño de 220 x 90 |
+| Getters y setters con la convención getX / setX | Para el nombre, el saldo y los tres colores |
+| Propiedades que avisan cuando cambian | El nombre y el saldo avisan con PropertyChangeSupport |
+
+### **3.1.5. Propiedades y métodos**
+
+| Propiedad o método | Qué hace | Valor por defecto |
+| :--- | :--- | :--- |
+| nombreParticipante | Nombre que se ve arriba. Si llega vacío, se queda el anterior | "Participante" |
+| saldoActual | Saldo en euros: positivo si le deben, negativo si debe | 0 |
+| colorAcreedor | Color de fondo cuando le deben dinero | #11734F |
+| colorDeudor | Color de fondo cuando debe dinero | #B53C3C |
+| colorSaldado | Color de fondo cuando está en paz | #59665E |
+| getEstado() | Dice si es ACREEDOR, DEUDOR o SALDADO según el saldo | SALDADO |
+| getColorEstado() | Devuelve el color que toca según el estado | gris |
+| addActionListener() / removeActionListener() | Apuntarse para enterarse de los clics. Por ahora están vacíos: los rellena la tarea 3.2 | |
+
+Cuando cambia el nombre o el saldo, la tarjeta avisa a quien la esté escuchando con el valor anterior y el nuevo, usando los nombres PROP_NOMBRE y PROP_SALDO. Así, más adelante, el controlador de la app o las pruebas de la 3.3 podrán enterarse del cambio sin tener que preguntar todo el rato.
+
+| Estado | Cuándo | Color | Texto |
+| :--- | :--- | :--- | :--- |
+| ACREEDOR | Le deben más de medio céntimo | Verde | "+ Le deben 25,50 €" |
+| DEUDOR | Debe más de medio céntimo | Rojo | "- Debe 10,00 €" |
+| SALDADO | Entre -0,005 y 0,005 | Gris | "✓ Saldado" |
+
+### **3.1.6. Decisiones de diseño**
+
+* **Heredar de JPanel:** JPanel ya trae el fondo y la forma de colocar etiquetas dentro. Con JComponent habría que programarlo a mano.
+* **Pintar con dos etiquetas (JLabel):** el nombre arriba y el importe abajo. Es más sencillo que dibujar a mano con paintComponent, respeta la fuente de FlatLaf y, cuando se complete la accesibilidad en la 3.2, el lector de pantalla NVDA podrá leer el texto.
+* **El estado no se guarda, se calcula:** sale del saldo cada vez que se pide, así nunca puede quedarse desfasado.
+* **Medio céntimo de margen:** los decimales con double no son exactos y al repartir 10 € entre 3 siempre queda un resto mínimo. Todo lo que esté por debajo de medio céntimo cuenta como cero, porque en pantalla saldría 0,00 €.
+* **Datos que no valen:** si llega un nombre vacío o un color nulo, la tarjeta lo ignora y se queda con el valor que tenía. Lo que escribe el usuario ya lo valida el formulario.
+* **Primero el esqueleto, luego el relleno:** subimos pronto la clase con todos sus métodos públicos declarados, aunque algunos estuvieran vacíos, para que Jesús (eventos) y Guillermo (pruebas) pudieran empezar sin esperar. Desde entonces no hemos cambiado nombres, parámetros ni tipos de retorno.
+
+### **3.1.7. Pruebas realizadas**
+
+Antes de que Guillermo haga las pruebas con JUnit 5 (3.3), hemos comprobado a mano que la tarjeta funciona. Para ello hemos abierto tres tarjetas en una ventana de prueba con FlatLaf (esa ventana no forma parte del proyecto).
+
+Al abrirla se ven los tres estados: Sofía en verde con 25,50 €, Carlos en rojo con -10 € y Lucía en gris con 0,001 €, que cuenta como saldado porque es menos de medio céntimo.
+
+![Las tres tarjetas en sus tres estados](https://raw.githubusercontent.com/jesuscabeza25-lab/PayClear-DI/main/img/Sprint3_3.1_tarjetas.png)
+
+Al bajar 30 € el saldo de Sofía, su tarjeta pasa a roja ("- Debe 4,50 €") y llega el aviso de cambio con el valor anterior y el nuevo.
+
+![Aviso al cambiar el saldo](https://raw.githubusercontent.com/jesuscabeza25-lab/PayClear-DI/main/img/Sprint3_3.1_aviso_cambio.png)
+
+Al intentar dejar a Carlos sin nombre, la tarjeta lo ignora y sigue llamándose Carlos.
+
+![Nombre vacío ignorado](https://raw.githubusercontent.com/jesuscabeza25-lab/PayClear-DI/main/img/Sprint3_3.1_nombre_vacio.png)
+### **Fuentes**
+
+* Acosta Lugo, W. (2026). *Arquitectura y creación de componentes visuales reutilizables bajo el estándar JavaBeans* [Artículo]. Desarrollo de Interfaces, Campus Cámara Comercio Sevilla.
+* Acosta Lugo, W. (2026). *Guía rápida: creación, empaquetado y despliegue de una librería de componentes* [Guía]. Desarrollo de Interfaces, Campus Cámara Comercio Sevilla.
+* Oracle. *Properties*. The Java Tutorials (JavaBeans). https://docs.oracle.com/javase/tutorial/javabeans/writing/properties.html
+* Oracle. *What Is an Interface?* The Java Tutorials. https://docs.oracle.com/javase/tutorial/java/concepts/interface.html
+* Apache NetBeans. *Developing General Java Applications*. https://netbeans.apache.org/tutorial/main/kb/docs/java/javase-intro/
+
+
+
 
 ## Pruebas, Calidad y Documentación (QA Tester)
 
