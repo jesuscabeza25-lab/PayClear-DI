@@ -46,6 +46,25 @@ PayClear es una solucion orientada a simplificar la division de gastos grupales 
 
 ---
 
+## 4. Alcance del Sprint 3 
+
+- Desarrollo del JavaBean visual reutilizable `TarjetaSaldoParticipante` dentro del proyecto aislado `PayClearComponentes`, con cambio automatico de estado visual segun saldo (acreedor en verde, deudor en rojo y saldado en gris), propiedades ligadas (`PropertyChangeEvent`), emision de `ActionEvent` y soporte completo de accesibilidad (navegacion por teclado con `Tab`, `Intro` y `Espacio`, y descripciones para lectores de pantalla).
+- Creacion y ejecucion de la bateria de pruebas unitarias aisladas (`TarjetaSaldoParticipanteTest`) mediante JUnit 4.13.2 + Hamcrest sobre el EDT de Swing (6/6 pruebas superadas sin depender de `VistaPrincipal`), validando valores por defecto, setters, colores por estado, control de nulos y disparo de eventos.
+- Documentacion integral del componente y del paquete (`package-info.java`) con Javadoc cumpliendo las reglas estrictas de DocLint y codificacion UTF-8, junto con el empaquetado distribuible en `PayClearComponentes/dist/PayClearComponentes.jar` y la generacion de `dist/javadoc/index.html`.
+- Integracion del `.jar` en las librerias de `PayClear` y en la paleta de NetBeans Matisse, sustituyendo las tarjetas estaticas de `VistaPrincipal` por instancias de `TarjetaSaldoParticipante` conectadas al filtrado de movimientos por participante, verificando el flujo completo con raton y teclado.
+
+---
+
+### 4.1. Entregables del Sprint 3
+
+- **Libreria del Componente Reutilizable:** Proyecto independiente con el JavaBean `TarjetaSaldoParticipante`, pruebas unitarias, empaquetado `.jar` y documentacion HTML en [PayClearComponentes/](PayClearComponentes/)
+- **Integracion en la Aplicacion Principal:** Vistas actualizadas con el componente en la paleta de NetBeans Matisse y Look & Feel FlatLaf en [PayClear/](PayClear/)
+- **Gestion y Seguimiento del Sprint:** [Tablero Kanban en GitHub Projects](https://github.com/users/jesuscabeza25-lab/projects/2/views/11)
+- **Memoria Tecnica del Sprint 3:** Consultar [Sprint3.md](Sprint3.md) para el detalle del desarrollo del componente, bateria de pruebas aisladas, generacion de Javadoc y empaquetado.
+
+
+---
+
 ## 4. Estructura Proyectada de Paquetes (MVC)
 
 ```text
