@@ -166,7 +166,6 @@ BUILD SUCCESSFUL (total time: 1 second)
 
 ![Resultado de la ejecución de pruebas en NetBeans](img/salidaPantalla_pruebas.png)
 
-![Documentación generada con Javadoc](img/salidaJavadoc_pruebas.png)
 
 
 ## [3.4] Javadoc y empaquetado del `.jar`
@@ -193,7 +192,7 @@ javadoc.additionalparam=-encoding UTF-8 -charset UTF-8 -docencoding UTF-8
 
 Al ejecutar **Generate Javadoc** sobre `PayClearComponentes` se ha obtenido `BUILD SUCCESSFUL` sin errores de DocLint. Después se ha abierto `PayClearComponentes/dist/javadoc/index.html` en el navegador para comprobar que se renderizan bien las tildes, la descripción del paquete, el `enum Estado`, las constantes y todos los métodos públicos.
 
-![Vista del Javadoc en el navegador](img/captura_javadoc_navegador.png)
+![Documentación generada con Javadoc](img/salidaJavadoc_pruebas.png)
 
 ### Empaquetado del `.jar` y subida al repositorio
 
