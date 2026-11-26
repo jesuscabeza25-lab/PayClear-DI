@@ -70,4 +70,11 @@
     nbproject/build-impl.xml file. 
 
     -->
+    <!-- Al ejecutar un solo archivo (Run File) NetBeans no copia las imagenes
+         a build/classes y getResource devuelve null. Aqui se copian siempre. -->
+    <target name="-post-compile-single">
+        <copy todir="${build.classes.dir}">
+            <fileset dir="${src.dir}" excludes="${build.classes.excludes},${excludes}" includes="${includes}"/>
+        </copy>
+    </target>
 </project>

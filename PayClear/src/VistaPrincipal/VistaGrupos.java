@@ -56,44 +56,11 @@ public class VistaGrupos extends javax.swing.JFrame {
         pnlEspacioR2 = new javax.swing.JPanel();
         pnlPersonas = new javax.swing.JPanel();
         pnlPersona1 = new javax.swing.JPanel();
-        pnlPersona1AvatarWrap = new javax.swing.JPanel();
-        lblPersona1Avatar = new javax.swing.JLabel();
-        pnlPersona1Textos = new javax.swing.JPanel();
-        lblPersona1Nombre = new javax.swing.JLabel();
-        lblPersona1Estado = new javax.swing.JLabel();
-        lblPersona1Monto = new javax.swing.JLabel();
-        sepPersona1 = new javax.swing.JSeparator();
+        tarjetaGuillermo = new com.payclear.componente.TarjetaSaldoParticipante();
         pnlPersona2 = new javax.swing.JPanel();
-        pnlPersona2AvatarWrap = new javax.swing.JPanel();
-        lblPersona2Avatar = new javax.swing.JLabel();
-        pnlPersona2Textos = new javax.swing.JPanel();
-        lblPersona2Nombre = new javax.swing.JLabel();
-        lblPersona2Estado = new javax.swing.JLabel();
-        lblPersona2Monto = new javax.swing.JLabel();
-        sepPersona2 = new javax.swing.JSeparator();
+        tarjetaJesus = new com.payclear.componente.TarjetaSaldoParticipante();
         pnlPersona3 = new javax.swing.JPanel();
-        pnlPersona3AvatarWrap = new javax.swing.JPanel();
-        lblPersona3Avatar = new javax.swing.JLabel();
-        pnlPersona3Textos = new javax.swing.JPanel();
-        lblPersona3Nombre = new javax.swing.JLabel();
-        lblPersona3Estado = new javax.swing.JLabel();
-        lblPersona3Monto = new javax.swing.JLabel();
-        sepPersona3 = new javax.swing.JSeparator();
-        pnlPersona4 = new javax.swing.JPanel();
-        pnlPersona4AvatarWrap = new javax.swing.JPanel();
-        lblPersona4Avatar = new javax.swing.JLabel();
-        pnlPersona4Textos = new javax.swing.JPanel();
-        lblPersona4Nombre = new javax.swing.JLabel();
-        lblPersona4Estado = new javax.swing.JLabel();
-        lblPersona4Monto = new javax.swing.JLabel();
-        sepPersona4 = new javax.swing.JSeparator();
-        pnlPersona5 = new javax.swing.JPanel();
-        pnlPersona5AvatarWrap = new javax.swing.JPanel();
-        lblPersona5Avatar = new javax.swing.JLabel();
-        pnlPersona5Textos = new javax.swing.JPanel();
-        lblPersona5Nombre = new javax.swing.JLabel();
-        lblPersona5Estado = new javax.swing.JLabel();
-        lblPersona5Monto = new javax.swing.JLabel();
+        tarjetaPablo = new com.payclear.componente.TarjetaSaldoParticipante();
         pnlGrupos = new javax.swing.JPanel();
         pnlGruposCab = new javax.swing.JPanel();
         pnlTitulosGrupos = new javax.swing.JPanel();
@@ -243,7 +210,7 @@ public class VistaGrupos extends javax.swing.JFrame {
 
         lblTotalAcreedorValor.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblTotalAcreedorValor.setForeground(new java.awt.Color(21, 102, 56));
-        lblTotalAcreedorValor.setText("47,00 €");
+        lblTotalAcreedorValor.setText("28,00 €");
         lblTotalAcreedorValor.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 13));
         pnlTotalAcreedor.add(lblTotalAcreedorValor, java.awt.BorderLayout.EAST);
 
@@ -270,7 +237,7 @@ public class VistaGrupos extends javax.swing.JFrame {
 
         lblTotalDeudorValor.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         lblTotalDeudorValor.setForeground(new java.awt.Color(155, 28, 28));
-        lblTotalDeudorValor.setText("33,00 €");
+        lblTotalDeudorValor.setText("28,00 €");
         lblTotalDeudorValor.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 13));
         pnlTotalDeudor.add(lblTotalDeudorValor, java.awt.BorderLayout.EAST);
 
@@ -283,256 +250,64 @@ public class VistaGrupos extends javax.swing.JFrame {
         pnlResumen.add(pnlEspacioR2);
 
         pnlPersonas.setBackground(new java.awt.Color(255, 255, 255));
-        pnlPersonas.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(221, 227, 224), 1, true));
         pnlPersonas.setAlignmentX(0.0F);
-        pnlPersonas.setMaximumSize(new java.awt.Dimension(32767, 341));
-        pnlPersonas.setPreferredSize(new java.awt.Dimension(264, 341));
+        pnlPersonas.setMaximumSize(new java.awt.Dimension(32767, 294));
+        pnlPersonas.setPreferredSize(new java.awt.Dimension(264, 294));
         pnlPersonas.setLayout(new javax.swing.BoxLayout(pnlPersonas, javax.swing.BoxLayout.PAGE_AXIS));
 
         pnlPersona1.setBackground(new java.awt.Color(255, 255, 255));
-        pnlPersona1.setMaximumSize(new java.awt.Dimension(32767, 67));
-        pnlPersona1.setPreferredSize(new java.awt.Dimension(262, 67));
+        pnlPersona1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 8, 0));
+        pnlPersona1.setAlignmentX(0.0F);
+        pnlPersona1.setMaximumSize(new java.awt.Dimension(32767, 98));
+        pnlPersona1.setPreferredSize(new java.awt.Dimension(264, 98));
         pnlPersona1.setLayout(new java.awt.BorderLayout());
 
-        pnlPersona1AvatarWrap.setBackground(new java.awt.Color(255, 255, 255));
-        pnlPersona1AvatarWrap.setPreferredSize(new java.awt.Dimension(58, 67));
-        pnlPersona1AvatarWrap.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
-
-        lblPersona1Avatar.setBackground(new java.awt.Color(236, 232, 251));
-        lblPersona1Avatar.setFont(new java.awt.Font("Segoe UI", 1, 9)); // NOI18N
-        lblPersona1Avatar.setForeground(new java.awt.Color(15, 43, 38));
-        lblPersona1Avatar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPersona1Avatar.setText("G");
-        lblPersona1Avatar.setOpaque(true);
-        lblPersona1Avatar.setPreferredSize(new java.awt.Dimension(32, 32));
-        pnlPersona1AvatarWrap.add(lblPersona1Avatar);
-
-        pnlPersona1.add(pnlPersona1AvatarWrap, java.awt.BorderLayout.WEST);
-
-        pnlPersona1Textos.setBackground(new java.awt.Color(255, 255, 255));
-        pnlPersona1Textos.setBorder(javax.swing.BorderFactory.createEmptyBorder(14, 0, 0, 0));
-        pnlPersona1Textos.setLayout(new javax.swing.BoxLayout(pnlPersona1Textos, javax.swing.BoxLayout.PAGE_AXIS));
-
-        lblPersona1Nombre.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
-        lblPersona1Nombre.setForeground(new java.awt.Color(15, 43, 38));
-        lblPersona1Nombre.setText("Guillermo");
-        pnlPersona1Textos.add(lblPersona1Nombre);
-
-        lblPersona1Estado.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
-        lblPersona1Estado.setForeground(new java.awt.Color(107, 122, 117));
-        lblPersona1Estado.setText("Te debe");
-        lblPersona1Estado.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 0, 0, 0));
-        pnlPersona1Textos.add(lblPersona1Estado);
-
-        pnlPersona1.add(pnlPersona1Textos, java.awt.BorderLayout.CENTER);
-
-        lblPersona1Monto.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
-        lblPersona1Monto.setForeground(new java.awt.Color(21, 102, 56));
-        lblPersona1Monto.setText("+28,00 €");
-        lblPersona1Monto.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 14));
-        pnlPersona1.add(lblPersona1Monto, java.awt.BorderLayout.EAST);
+        tarjetaGuillermo.setNombreParticipante("Guillermo");
+        tarjetaGuillermo.setSaldoActual(28.0);
+        tarjetaGuillermo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tarjetaGuillermoActionPerformed(evt);
+            }
+        });
+        pnlPersona1.add(tarjetaGuillermo, java.awt.BorderLayout.CENTER);
 
         pnlPersonas.add(pnlPersona1);
 
-        sepPersona1.setForeground(new java.awt.Color(221, 227, 224));
-        sepPersona1.setMaximumSize(new java.awt.Dimension(32767, 1));
-        sepPersona1.setPreferredSize(new java.awt.Dimension(262, 1));
-        pnlPersonas.add(sepPersona1);
-
         pnlPersona2.setBackground(new java.awt.Color(255, 255, 255));
-        pnlPersona2.setMaximumSize(new java.awt.Dimension(32767, 67));
-        pnlPersona2.setPreferredSize(new java.awt.Dimension(262, 67));
+        pnlPersona2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 8, 0));
+        pnlPersona2.setAlignmentX(0.0F);
+        pnlPersona2.setMaximumSize(new java.awt.Dimension(32767, 98));
+        pnlPersona2.setPreferredSize(new java.awt.Dimension(264, 98));
         pnlPersona2.setLayout(new java.awt.BorderLayout());
 
-        pnlPersona2AvatarWrap.setBackground(new java.awt.Color(255, 255, 255));
-        pnlPersona2AvatarWrap.setPreferredSize(new java.awt.Dimension(58, 67));
-        pnlPersona2AvatarWrap.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
-
-        lblPersona2Avatar.setBackground(new java.awt.Color(249, 227, 213));
-        lblPersona2Avatar.setFont(new java.awt.Font("Segoe UI", 1, 9)); // NOI18N
-        lblPersona2Avatar.setForeground(new java.awt.Color(15, 43, 38));
-        lblPersona2Avatar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPersona2Avatar.setText("P");
-        lblPersona2Avatar.setOpaque(true);
-        lblPersona2Avatar.setPreferredSize(new java.awt.Dimension(32, 32));
-        pnlPersona2AvatarWrap.add(lblPersona2Avatar);
-
-        pnlPersona2.add(pnlPersona2AvatarWrap, java.awt.BorderLayout.WEST);
-
-        pnlPersona2Textos.setBackground(new java.awt.Color(255, 255, 255));
-        pnlPersona2Textos.setBorder(javax.swing.BorderFactory.createEmptyBorder(14, 0, 0, 0));
-        pnlPersona2Textos.setLayout(new javax.swing.BoxLayout(pnlPersona2Textos, javax.swing.BoxLayout.PAGE_AXIS));
-
-        lblPersona2Nombre.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
-        lblPersona2Nombre.setForeground(new java.awt.Color(15, 43, 38));
-        lblPersona2Nombre.setText("Pablo");
-        pnlPersona2Textos.add(lblPersona2Nombre);
-
-        lblPersona2Estado.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
-        lblPersona2Estado.setForeground(new java.awt.Color(107, 122, 117));
-        lblPersona2Estado.setText("Le debes");
-        lblPersona2Estado.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 0, 0, 0));
-        pnlPersona2Textos.add(lblPersona2Estado);
-
-        pnlPersona2.add(pnlPersona2Textos, java.awt.BorderLayout.CENTER);
-
-        lblPersona2Monto.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
-        lblPersona2Monto.setForeground(new java.awt.Color(155, 28, 28));
-        lblPersona2Monto.setText("−25,00 €");
-        lblPersona2Monto.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 14));
-        pnlPersona2.add(lblPersona2Monto, java.awt.BorderLayout.EAST);
+        tarjetaJesus.setNombreParticipante("Jesús");
+        tarjetaJesus.setSaldoActual(-8.0);
+        tarjetaJesus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tarjetaJesusActionPerformed(evt);
+            }
+        });
+        pnlPersona2.add(tarjetaJesus, java.awt.BorderLayout.CENTER);
 
         pnlPersonas.add(pnlPersona2);
 
-        sepPersona2.setForeground(new java.awt.Color(221, 227, 224));
-        sepPersona2.setMaximumSize(new java.awt.Dimension(32767, 1));
-        sepPersona2.setPreferredSize(new java.awt.Dimension(262, 1));
-        pnlPersonas.add(sepPersona2);
-
         pnlPersona3.setBackground(new java.awt.Color(255, 255, 255));
-        pnlPersona3.setMaximumSize(new java.awt.Dimension(32767, 67));
-        pnlPersona3.setPreferredSize(new java.awt.Dimension(262, 67));
+        pnlPersona3.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 8, 0));
+        pnlPersona3.setAlignmentX(0.0F);
+        pnlPersona3.setMaximumSize(new java.awt.Dimension(32767, 98));
+        pnlPersona3.setPreferredSize(new java.awt.Dimension(264, 98));
         pnlPersona3.setLayout(new java.awt.BorderLayout());
 
-        pnlPersona3AvatarWrap.setBackground(new java.awt.Color(255, 255, 255));
-        pnlPersona3AvatarWrap.setPreferredSize(new java.awt.Dimension(58, 67));
-        pnlPersona3AvatarWrap.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
-
-        lblPersona3Avatar.setBackground(new java.awt.Color(236, 232, 251));
-        lblPersona3Avatar.setFont(new java.awt.Font("Segoe UI", 1, 9)); // NOI18N
-        lblPersona3Avatar.setForeground(new java.awt.Color(15, 43, 38));
-        lblPersona3Avatar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPersona3Avatar.setText("G");
-        lblPersona3Avatar.setOpaque(true);
-        lblPersona3Avatar.setPreferredSize(new java.awt.Dimension(32, 32));
-        pnlPersona3AvatarWrap.add(lblPersona3Avatar);
-
-        pnlPersona3.add(pnlPersona3AvatarWrap, java.awt.BorderLayout.WEST);
-
-        pnlPersona3Textos.setBackground(new java.awt.Color(255, 255, 255));
-        pnlPersona3Textos.setBorder(javax.swing.BorderFactory.createEmptyBorder(14, 0, 0, 0));
-        pnlPersona3Textos.setLayout(new javax.swing.BoxLayout(pnlPersona3Textos, javax.swing.BoxLayout.PAGE_AXIS));
-
-        lblPersona3Nombre.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
-        lblPersona3Nombre.setForeground(new java.awt.Color(15, 43, 38));
-        lblPersona3Nombre.setText("guillermo");
-        pnlPersona3Textos.add(lblPersona3Nombre);
-
-        lblPersona3Estado.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
-        lblPersona3Estado.setForeground(new java.awt.Color(107, 122, 117));
-        lblPersona3Estado.setText("Te debe");
-        lblPersona3Estado.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 0, 0, 0));
-        pnlPersona3Textos.add(lblPersona3Estado);
-
-        pnlPersona3.add(pnlPersona3Textos, java.awt.BorderLayout.CENTER);
-
-        lblPersona3Monto.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
-        lblPersona3Monto.setForeground(new java.awt.Color(21, 102, 56));
-        lblPersona3Monto.setText("+14,00 €");
-        lblPersona3Monto.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 14));
-        pnlPersona3.add(lblPersona3Monto, java.awt.BorderLayout.EAST);
+        tarjetaPablo.setNombreParticipante("Pablo");
+        tarjetaPablo.setSaldoActual(-20.0);
+        tarjetaPablo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tarjetaPabloActionPerformed(evt);
+            }
+        });
+        pnlPersona3.add(tarjetaPablo, java.awt.BorderLayout.CENTER);
 
         pnlPersonas.add(pnlPersona3);
-
-        sepPersona3.setForeground(new java.awt.Color(221, 227, 224));
-        sepPersona3.setMaximumSize(new java.awt.Dimension(32767, 1));
-        sepPersona3.setPreferredSize(new java.awt.Dimension(262, 1));
-        pnlPersonas.add(sepPersona3);
-
-        pnlPersona4.setBackground(new java.awt.Color(255, 255, 255));
-        pnlPersona4.setMaximumSize(new java.awt.Dimension(32767, 67));
-        pnlPersona4.setPreferredSize(new java.awt.Dimension(262, 67));
-        pnlPersona4.setLayout(new java.awt.BorderLayout());
-
-        pnlPersona4AvatarWrap.setBackground(new java.awt.Color(255, 255, 255));
-        pnlPersona4AvatarWrap.setPreferredSize(new java.awt.Dimension(58, 67));
-        pnlPersona4AvatarWrap.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
-
-        lblPersona4Avatar.setBackground(new java.awt.Color(249, 227, 213));
-        lblPersona4Avatar.setFont(new java.awt.Font("Segoe UI", 1, 9)); // NOI18N
-        lblPersona4Avatar.setForeground(new java.awt.Color(15, 43, 38));
-        lblPersona4Avatar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPersona4Avatar.setText("J");
-        lblPersona4Avatar.setOpaque(true);
-        lblPersona4Avatar.setPreferredSize(new java.awt.Dimension(32, 32));
-        pnlPersona4AvatarWrap.add(lblPersona4Avatar);
-
-        pnlPersona4.add(pnlPersona4AvatarWrap, java.awt.BorderLayout.WEST);
-
-        pnlPersona4Textos.setBackground(new java.awt.Color(255, 255, 255));
-        pnlPersona4Textos.setBorder(javax.swing.BorderFactory.createEmptyBorder(14, 0, 0, 0));
-        pnlPersona4Textos.setLayout(new javax.swing.BoxLayout(pnlPersona4Textos, javax.swing.BoxLayout.PAGE_AXIS));
-
-        lblPersona4Nombre.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
-        lblPersona4Nombre.setForeground(new java.awt.Color(15, 43, 38));
-        lblPersona4Nombre.setText("Jesús");
-        pnlPersona4Textos.add(lblPersona4Nombre);
-
-        lblPersona4Estado.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
-        lblPersona4Estado.setForeground(new java.awt.Color(107, 122, 117));
-        lblPersona4Estado.setText("Le debes");
-        lblPersona4Estado.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 0, 0, 0));
-        pnlPersona4Textos.add(lblPersona4Estado);
-
-        pnlPersona4.add(pnlPersona4Textos, java.awt.BorderLayout.CENTER);
-
-        lblPersona4Monto.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
-        lblPersona4Monto.setForeground(new java.awt.Color(155, 28, 28));
-        lblPersona4Monto.setText("−8,00 €");
-        lblPersona4Monto.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 14));
-        pnlPersona4.add(lblPersona4Monto, java.awt.BorderLayout.EAST);
-
-        pnlPersonas.add(pnlPersona4);
-
-        sepPersona4.setForeground(new java.awt.Color(221, 227, 224));
-        sepPersona4.setMaximumSize(new java.awt.Dimension(32767, 1));
-        sepPersona4.setPreferredSize(new java.awt.Dimension(262, 1));
-        pnlPersonas.add(sepPersona4);
-
-        pnlPersona5.setBackground(new java.awt.Color(255, 255, 255));
-        pnlPersona5.setMaximumSize(new java.awt.Dimension(32767, 67));
-        pnlPersona5.setPreferredSize(new java.awt.Dimension(262, 67));
-        pnlPersona5.setLayout(new java.awt.BorderLayout());
-
-        pnlPersona5AvatarWrap.setBackground(new java.awt.Color(255, 255, 255));
-        pnlPersona5AvatarWrap.setPreferredSize(new java.awt.Dimension(58, 67));
-        pnlPersona5AvatarWrap.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT));
-
-        lblPersona5Avatar.setBackground(new java.awt.Color(236, 232, 251));
-        lblPersona5Avatar.setFont(new java.awt.Font("Segoe UI", 1, 9)); // NOI18N
-        lblPersona5Avatar.setForeground(new java.awt.Color(15, 43, 38));
-        lblPersona5Avatar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblPersona5Avatar.setText("JL");
-        lblPersona5Avatar.setOpaque(true);
-        lblPersona5Avatar.setPreferredSize(new java.awt.Dimension(32, 32));
-        pnlPersona5AvatarWrap.add(lblPersona5Avatar);
-
-        pnlPersona5.add(pnlPersona5AvatarWrap, java.awt.BorderLayout.WEST);
-
-        pnlPersona5Textos.setBackground(new java.awt.Color(255, 255, 255));
-        pnlPersona5Textos.setBorder(javax.swing.BorderFactory.createEmptyBorder(14, 0, 0, 0));
-        pnlPersona5Textos.setLayout(new javax.swing.BoxLayout(pnlPersona5Textos, javax.swing.BoxLayout.PAGE_AXIS));
-
-        lblPersona5Nombre.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
-        lblPersona5Nombre.setForeground(new java.awt.Color(15, 43, 38));
-        lblPersona5Nombre.setText("José Luis");
-        pnlPersona5Textos.add(lblPersona5Nombre);
-
-        lblPersona5Estado.setFont(new java.awt.Font("Segoe UI", 0, 9)); // NOI18N
-        lblPersona5Estado.setForeground(new java.awt.Color(107, 122, 117));
-        lblPersona5Estado.setText("Te debe");
-        lblPersona5Estado.setBorder(javax.swing.BorderFactory.createEmptyBorder(10, 0, 0, 0));
-        pnlPersona5Textos.add(lblPersona5Estado);
-
-        pnlPersona5.add(pnlPersona5Textos, java.awt.BorderLayout.CENTER);
-
-        lblPersona5Monto.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
-        lblPersona5Monto.setForeground(new java.awt.Color(21, 102, 56));
-        lblPersona5Monto.setText("+5,00 €");
-        lblPersona5Monto.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 14));
-        pnlPersona5.add(lblPersona5Monto, java.awt.BorderLayout.EAST);
-
-        pnlPersonas.add(pnlPersona5);
 
         pnlResumen.add(pnlPersonas);
 
@@ -622,7 +397,7 @@ public class VistaGrupos extends javax.swing.JFrame {
 
         lblGrupo1Info.setFont(new java.awt.Font("Segoe UI", 0, 11)); // NOI18N
         lblGrupo1Info.setForeground(new java.awt.Color(21, 102, 56));
-        lblGrupo1Info.setText("<html>Te deben <b>14,00 €</b></html>");
+        lblGrupo1Info.setText("<html>Te deben <b>28,00 €</b></html>");
         lblGrupo1Info.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 0, 0, 0));
         pnlGrupo1Textos.add(lblGrupo1Info);
 
@@ -776,6 +551,23 @@ public class VistaGrupos extends javax.swing.JFrame {
         getContentPane().add(pnlBackground, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void tarjetaGuillermoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tarjetaGuillermoActionPerformed
+        mostrarSeleccion(evt.getActionCommand());
+    }//GEN-LAST:event_tarjetaGuillermoActionPerformed
+
+    private void tarjetaJesusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tarjetaJesusActionPerformed
+        mostrarSeleccion(evt.getActionCommand());
+    }//GEN-LAST:event_tarjetaJesusActionPerformed
+
+    private void tarjetaPabloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tarjetaPabloActionPerformed
+        mostrarSeleccion(evt.getActionCommand());
+    }//GEN-LAST:event_tarjetaPabloActionPerformed
+
+    // Indica debajo del título qué participante se ha pulsado
+    private void mostrarSeleccion(String nombre) {
+        lblResumenSub.setText("Saldo neto por persona · seleccionado: " + nombre);
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -822,26 +614,6 @@ public class VistaGrupos extends javax.swing.JFrame {
     private javax.swing.JLabel lblMarca;
     private javax.swing.JLabel lblMenuPrincipal;
     private javax.swing.JLabel lblMisGrupos;
-    private javax.swing.JLabel lblPersona1Avatar;
-    private javax.swing.JLabel lblPersona1Estado;
-    private javax.swing.JLabel lblPersona1Monto;
-    private javax.swing.JLabel lblPersona1Nombre;
-    private javax.swing.JLabel lblPersona2Avatar;
-    private javax.swing.JLabel lblPersona2Estado;
-    private javax.swing.JLabel lblPersona2Monto;
-    private javax.swing.JLabel lblPersona2Nombre;
-    private javax.swing.JLabel lblPersona3Avatar;
-    private javax.swing.JLabel lblPersona3Estado;
-    private javax.swing.JLabel lblPersona3Monto;
-    private javax.swing.JLabel lblPersona3Nombre;
-    private javax.swing.JLabel lblPersona4Avatar;
-    private javax.swing.JLabel lblPersona4Estado;
-    private javax.swing.JLabel lblPersona4Monto;
-    private javax.swing.JLabel lblPersona4Nombre;
-    private javax.swing.JLabel lblPersona5Avatar;
-    private javax.swing.JLabel lblPersona5Estado;
-    private javax.swing.JLabel lblPersona5Monto;
-    private javax.swing.JLabel lblPersona5Nombre;
     private javax.swing.JLabel lblResumenSub;
     private javax.swing.JLabel lblResumenTitulo;
     private javax.swing.JLabel lblSubGrupos;
@@ -874,20 +646,8 @@ public class VistaGrupos extends javax.swing.JFrame {
     private javax.swing.JPanel pnlMarca;
     private javax.swing.JPanel pnlNuevoGrupoWrap;
     private javax.swing.JPanel pnlPersona1;
-    private javax.swing.JPanel pnlPersona1AvatarWrap;
-    private javax.swing.JPanel pnlPersona1Textos;
     private javax.swing.JPanel pnlPersona2;
-    private javax.swing.JPanel pnlPersona2AvatarWrap;
-    private javax.swing.JPanel pnlPersona2Textos;
     private javax.swing.JPanel pnlPersona3;
-    private javax.swing.JPanel pnlPersona3AvatarWrap;
-    private javax.swing.JPanel pnlPersona3Textos;
-    private javax.swing.JPanel pnlPersona4;
-    private javax.swing.JPanel pnlPersona4AvatarWrap;
-    private javax.swing.JPanel pnlPersona4Textos;
-    private javax.swing.JPanel pnlPersona5;
-    private javax.swing.JPanel pnlPersona5AvatarWrap;
-    private javax.swing.JPanel pnlPersona5Textos;
     private javax.swing.JPanel pnlPersonas;
     private javax.swing.JPanel pnlResumen;
     private javax.swing.JPanel pnlResumenLinea;
@@ -899,9 +659,8 @@ public class VistaGrupos extends javax.swing.JFrame {
     private javax.swing.JPanel pnlTopWrap;
     private javax.swing.JPanel pnlTotalAcreedor;
     private javax.swing.JPanel pnlTotalDeudor;
-    private javax.swing.JSeparator sepPersona1;
-    private javax.swing.JSeparator sepPersona2;
-    private javax.swing.JSeparator sepPersona3;
-    private javax.swing.JSeparator sepPersona4;
+    private com.payclear.componente.TarjetaSaldoParticipante tarjetaGuillermo;
+    private com.payclear.componente.TarjetaSaldoParticipante tarjetaJesus;
+    private com.payclear.componente.TarjetaSaldoParticipante tarjetaPablo;
     // End of variables declaration//GEN-END:variables
 }
