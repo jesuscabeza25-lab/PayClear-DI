@@ -429,6 +429,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         lblVerHistorial.setText("Ver historial   →");
         lblVerHistorial.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         lblVerHistorial.setBorder(javax.swing.BorderFactory.createEmptyBorder(8, 0, 0, 0));
+        lblVerHistorial.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lblVerHistorialMouseClicked(evt);
+            }
+        });
         pnlMovCabecera.add(lblVerHistorial, java.awt.BorderLayout.EAST);
 
         pnlMovimientos.add(pnlMovCabecera, java.awt.BorderLayout.NORTH);
@@ -649,7 +654,7 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
         lblPagador3.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         lblPagador3.setForeground(new java.awt.Color(30, 42, 58));
-        lblPagador3.setText("Jesus");
+        lblPagador3.setText("Jesús");
         lblPagador3.setPreferredSize(new java.awt.Dimension(100, 64));
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 1;
@@ -796,6 +801,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         cmbPagadoPor.setAlignmentX(0.0F);
         cmbPagadoPor.setMaximumSize(new java.awt.Dimension(32767, 30));
         cmbPagadoPor.setPreferredSize(new java.awt.Dimension(297, 30));
+        cmbPagadoPor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbPagadoPorActionPerformed(evt);
+            }
+        });
         pnlCalcContenido.add(cmbPagadoPor);
 
         lblDividirEntre.setFont(new java.awt.Font("Segoe UI", 1, 11)); // NOI18N
@@ -919,6 +929,11 @@ public class VistaPrincipal extends javax.swing.JFrame {
         btnDividirInstante.setFocusPainted(false);
         btnDividirInstante.setMaximumSize(new java.awt.Dimension(32767, 36));
         btnDividirInstante.setPreferredSize(new java.awt.Dimension(297, 36));
+        btnDividirInstante.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDividirInstanteActionPerformed(evt);
+            }
+        });
         pnlCalcContenido.add(btnDividirInstante);
 
         lblCalculoLocal.setFont(new java.awt.Font("Segoe UI Symbol", 0, 10)); // NOI18N
@@ -965,6 +980,48 @@ public class VistaPrincipal extends javax.swing.JFrame {
 
     private void tarjetaSaldoParticipante3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tarjetaSaldoParticipante3ActionPerformed
 filtrarHistorialPorParticipante(evt.getActionCommand());    }//GEN-LAST:event_tarjetaSaldoParticipante3ActionPerformed
+
+    private void cmbPagadoPorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPagadoPorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmbPagadoPorActionPerformed
+
+    private void lblVerHistorialMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lblVerHistorialMouseClicked
+        pnlFila1.setVisible(true);
+        sepTabla3.setVisible(true);
+        pnlFila2.setVisible(true);
+        sepTabla4.setVisible(true);
+        pnlFila3.setVisible(true);
+        pnlTabla.revalidate();
+        pnlTabla.repaint();
+    }//GEN-LAST:event_lblVerHistorialMouseClicked
+
+    private void btnDividirInstanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDividirInstanteActionPerformed
+        try {
+    double importe = Double.parseDouble(txtImporte.getText().replace(",", ".").trim());
+    if (importe <= 0) {
+        return;
+    }
+    double cuota = importe / 3.0;
+    String pagador = String.valueOf(cmbPagadoPor.getSelectedItem());
+
+    if ("Guillermo".equals(pagador)) {
+        tarjetaSaldoParticipante4.setSaldoActual(tarjetaSaldoParticipante4.getSaldoActual() + importe - cuota);
+        tarjetaSaldoParticipante3.setSaldoActual(tarjetaSaldoParticipante3.getSaldoActual() - cuota);
+        tarjetaSaldoParticipante2.setSaldoActual(tarjetaSaldoParticipante2.getSaldoActual() - cuota);
+    } else if ("José Luis".equals(pagador)) {
+        tarjetaSaldoParticipante3.setSaldoActual(tarjetaSaldoParticipante3.getSaldoActual() + importe - cuota);
+        tarjetaSaldoParticipante4.setSaldoActual(tarjetaSaldoParticipante4.getSaldoActual() - cuota);
+        tarjetaSaldoParticipante2.setSaldoActual(tarjetaSaldoParticipante2.getSaldoActual() - cuota);
+    } else if ("Jesús".equals(pagador)) {
+        tarjetaSaldoParticipante2.setSaldoActual(tarjetaSaldoParticipante2.getSaldoActual() + importe - cuota);
+        tarjetaSaldoParticipante4.setSaldoActual(tarjetaSaldoParticipante4.getSaldoActual() - cuota);
+        tarjetaSaldoParticipante3.setSaldoActual(tarjetaSaldoParticipante3.getSaldoActual() - cuota);
+    }
+    lblCuotaValor.setText(String.format("%.2f €", cuota));
+} catch (NumberFormatException ex) {
+    javax.swing.JOptionPane.showMessageDialog(this, "Introduce un importe válido.");
+}
+    }//GEN-LAST:event_btnDividirInstanteActionPerformed
     
     private void filtrarHistorialPorParticipante(String nombre) {
         boolean mostrarFila1 = nombre.equalsIgnoreCase(lblPagador1.getText());

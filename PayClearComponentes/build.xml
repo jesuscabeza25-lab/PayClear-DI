@@ -70,4 +70,23 @@
     nbproject/build-impl.xml file. 
 
     -->
+    
+    <target name="-do-test-run" depends="init,compile-test,-init-test-run-module-properties,-pre-test-run" if="have.tests">
+        <java classname="org.junit.platform.console.ConsoleLauncher" fork="true" failonerror="true">
+            <classpath path="${run.test.classpath}"/>
+            <arg value="execute"/>
+            <arg value="--scan-class-path"/>
+            <arg path="${build.test.classes.dir}"/>
+        </java>
+    </target>
+
+    <target name="-do-test-run-single" depends="init,compile-test-single,-init-test-run-module-properties,-pre-test-run-single" if="have.tests">
+        <java classname="org.junit.platform.console.ConsoleLauncher" fork="true" failonerror="true">
+            <classpath path="${run.test.classpath}"/>
+            <arg value="execute"/>
+            <arg value="--select-class"/>
+            <arg value="${test.class}"/>
+        </java>
+    </target>
+    
 </project>
