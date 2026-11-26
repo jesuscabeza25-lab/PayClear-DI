@@ -15,9 +15,22 @@ public class VistaPrincipal extends javax.swing.JFrame {
     /**
      * Creates new form VistaPrincipal
      */
+    
     public VistaPrincipal() {
         com.formdev.flatlaf.FlatLightLaf.setup();
         initComponents();
+
+        java.awt.Dimension maxSep = new java.awt.Dimension(Integer.MAX_VALUE, 1);
+        sepTabla1.setMaximumSize(maxSep);
+        sepTabla2.setMaximumSize(maxSep);
+        sepTabla3.setMaximumSize(maxSep);
+        sepTabla4.setMaximumSize(maxSep);
+
+        java.awt.Dimension maxFila = new java.awt.Dimension(Integer.MAX_VALUE, 64);
+        pnlFila1.setMaximumSize(maxFila);
+        pnlFila2.setMaximumSize(maxFila);
+        pnlFila3.setMaximumSize(maxFila);
+
         pnlTabla.add(javax.swing.Box.createVerticalGlue());
         pack();
         setLocationRelativeTo(null);
