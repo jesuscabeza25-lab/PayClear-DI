@@ -51,7 +51,7 @@ La idea es que la pantalla principal de PayClear tenga una tarjeta por participa
 | NetBeans con su diseñador Matisse | Programar el componente y, al final, arrastrarlo a las pantallas como cualquier otro control |
 | Java 17 LTS y Java Swing | Lenguaje y librería gráfica del proyecto |
 | FlatLaf 3.7.2 | Aspecto moderno de la app; la tarjeta usa la fuente que pone FlatLaf |
-| JUnit 4.13.2 | Pruebas unitarias del componente (apartado 3.3) |
+| JUnit 5 | Pruebas unitarias del componente (apartado 3.3) |
 | Javadoc con DocLint | Documentar el código y comprobar que los comentarios están bien escritos |
 | Git y GitHub Projects | Guardar las versiones del código y organizar las tareas del sprint |
  
